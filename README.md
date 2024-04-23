@@ -684,44 +684,40 @@ Método | Parámetros | Descripción
 
 # DECORADORES
 
-Los *Function Decorators* o decoradores de python son una potente herramienta que nos permite modificar el comportamiento de una clase o función 
+Los decoradores de python son una potente herramienta que nos permite modificar el comportamiento de una clase o función. La ventaja que ofrecen estos es que permiten ampliar el funcionamiento sin cambiar su código original.
 
-Un decorador contiene en su interior a una función y nos permiten ampliar el funcionamiento de esta sin tener que modificar su código.
+Vemos el uso de un decorador a continuación:
 
-Con el uso de decoradores podemos agregar funcionalidades complicadas a funciones o clases existentes con solo una línea de código.
-
-
-```python
-def f(...):
-    ...
-f = staticmethod(f)
-
-@staticmethod
-def f(...):
-```
 </br>
 
+```python
+def crear_etiqueta_precio(función_original):
+    def función_decorada(*args, **kwds):
+        print(f'PRECIO: {función_original(*args, **kwds)}¥')
+    return función_decorada
 
-Los decoradores de Python son herramientas valiosas para escribir código limpio, versátil, reutilizable y fácil de mantener.
-La ventaja que ofrecen los decoradores es que permiten ampliar el funcionamiento de una función o clase sin cambiar su código original.
 
+@crear_etiqueta_precio
+def calcular_precio(beneficio, *costes):
+    precio_total = beneficio
+    for coste in costes:
+        precio_total += coste
+        
+    return precio_total
+            
+
+calcular_precio(100, 300, 200)
+#PRECIO: 600¥
+```
+
+</br></br>
+
+
+Los decoradores de python son muy valiosos para escribir código limpio, versátil, reutilizable y fácil de mantener. Esto se debe en gran medida a que con el uso de decoradores podemos agregar funcionalidades complicadas a funciones o clases existentes con solo una línea de código.
 
 En esencia, cualquier función que toma como argumento una función y devuelva otra puede ser usada como un decorador.
 
-Algunos de los usos comunes que se dan a los decoradores en python son:
-
-- Almacenamiento en caché
-- Registro
-- Temporización
-- Autenticación
-- Autorización
-- Validación.
-
-
-
-
-
-
+</br>
 
 
 ### SINTAXIS
@@ -731,9 +727,10 @@ Debemos distinguir tres partes implicadas en la definición y uso de un decorado
 - Definición del decorador
 - Definición de la función decorada
 - Llamada a la función decorada
-</br></br>
 
-En lo que respecta al decorador, la definición de este se hace como una función normal teniendo en cuenta que debe recibir una función como parámetro y devolver otra.
+</br>
+
+En lo que respecta al decorador, la definición de este se hace como una función normal teniendo en cuenta que debe recibir la función original como parámetro y devolver la función decorada.
 
 Por otra parte se debe hacer la definición de la función decorada. Para ello debemos colocar el símbolo `@` junto al nombre del decorador justo antes de la definición de la función antigua, la cual no necesita ninguna alteración en su código.
 
@@ -741,40 +738,80 @@ Finalmente la llamada a la función decorada se hace de igual forma que se llama
 
 Vemos un ejemplo de todo ello a continuación:
 
-```python
-
-```
 </br>
 
+```python
+def informar_ejecución(función_original):
+    def función_decorada(*args, **kwds):
+        print("Comienza la ejecución de la función")
+        función_original(*args, **kwds)
+        print("La ejecución ha finalizado")
+    return función_decorada
+
+
+@informar_ejecución
+def mandar_emails(*clientes):
+    for cliente in clientes:
+        print(f'Enviando email a {cliente}')
+            
+
+mandar_emails("Oscar", "Tamara", "Asier", "Pablo", "Rosa",)
+#Comienza la ejecución de la función
+#Enviando email a Oscar
+#Enviando email a Tamara
+#Enviando email a Asier
+#Enviando email a Pablo
+#Enviando email a Rosa
+#La ejecución ha finalizado
+```
+
+</br>
 
 
 ### DECORADORES CON PARÁMETROS
 
 Es posible usar decoradores que admitan parámetros para modificar su comportamiento. Para ello debemos envolver nuevamente nuestro decorador con otra función que los defina. Estos parámetros pueden ser usados dentro del decorador para obtener el comportamiento deseado. Se muestra un ejemplo a continuación:
 
-```python
-def mi_decorador(arg):
-    def decorador_real(funcion):
-        def nueva_funcion(a, b):
-            print(arg)
-            c = funcion(a, b)
-            print(arg)
-            return c
-        return nueva_funcion
-    return decorador_real
-
-@mi_decorador("Imprimer esto antes y después")
-def suma(a, b):
-    print("Entra en funcion suma")
-    return a + b
-
-suma(5,8)
-# Imprimer esto antes y después
-# Entra en funcion suma
-# Imprimer esto antes y después
-```
 </br>
 
+```python
+def repetir(veces):
+    def decorador(función_original):
+        def función_decorada(*args, **kwds):
+            for vez in range(veces):
+                función_original(*args, **kwds)
+                     
+        return función_decorada
+    return decorador
+
+
+@repetir(3)
+def saludo():
+    print("¡Hola, mundo!")
+
+saludo()
+#¡Hola, mundo!
+#¡Hola, mundo!
+#¡Hola, mundo!
+
+
+@repetir(5)
+def sumar(*args):
+    total = 0
+    for arg in args:
+        total += arg
+    
+    print(f'Total = {total}')
+
+sumar(3, 6, 7)
+#Total = 16
+#Total = 16
+#Total = 16
+#Total = 16
+#Total = 16
+```
+
+</br>
 
 
 ### DECORADORES PREDEFINIDOS DE PYTHON
@@ -783,35 +820,83 @@ Algunos decoradores pueden usarse directamente ya que corresponden a funciones y
 
 Decorador | Descripción
 --------- | -----------
-@classmethod | Define un método de clase
+@classmethod    | Define un método de clase
+@staticmethod   | Define un método estático
 @abstractmethod | Define un método abstracto
-@staticmethod | Define un método estático
-@atexit.register | 
-@typing.final | 
-@enum.unique | 
-@property | Define el *getter* y el *setter* de una propiedad de clase
-@enum.verify | 
-@singledispatch | 
-@lru_cache | 
+@property       | Define el *getter* y el *setter* de una propiedad
+
+</br>
 
 
+Vemos el uso del decorador `@property` en el siguiente ejemplo:
 
-### EJEMPLO PRÁCTICO
+</br>
 
 ```python
-autenticado = True
+class Casa:
+    def __init__(self, precio):
+        self.__precio = precio
 
-def requiere_autenticación(f):
-    def funcion_decorada(*args, **kwargs):
-        if not autenticado:
-            print("Error. El usuario no se ha autenticado")
+    @property
+    def precio(self):
+        return self.__precio
+
+    @precio.setter
+    def precio(self, nuevo_valor):
+        if nuevo_valor != "":
+            print(f'Modificando el precio a {nuevo_valor}')
+            self.__precio = nuevo_valor
         else:
-            return f(*args, **kwargs)
-    return funcion_decorada
+            print("Error. Se debe pasar un valor")
+            
+
+mansión = Casa("1.200.000€")
+
+mansión.precio = "900.000€"
+#Modificando el precio a 900.000€
+
+print(mansión.precio)
+#900.000€
+```
+
+</br>
+
+
+### USOS COMUNES
+
+Algunos de los usos comunes que se dan a los decoradores en python son:
+
+- Almacenamiento en caché
+- Registro
+- Temporización
+- Autenticación
+- Autorización
+- Validación
+
+</br>
+
+
+Vemos un ejemplo de uso para comprobar si un usuario está autorizado a continuación:
+
+</br>
+
+```python
+usuario_autorizado = False
+
+def requiere_autenticación(función_original):
+    def función_decorada(*args, **kwargs):
+        if not usuario_autorizado:
+            print("Error. Usuario no autorizado")
+        else:
+            return función_original(*args, **kwargs)
+    return función_decorada
+
 
 @requiere_autenticación
-def di_hola():
-    print("Hola")
+def ejecutar_comando(comando):
+    print(f'Ejecutando el comando: {comando}')
+
     
-di_hola()
+ejecutar_comando("BORRAR")
+#Error. Usuario no autorizado
 ```
