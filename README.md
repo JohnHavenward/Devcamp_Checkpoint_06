@@ -267,9 +267,6 @@ class Clase(metaclass=ABCMeta):
 
 
 # API
-[¿Qué es una API?](#texto)</br>
-[¿Cuáles son los tres verbos de API?](#texto)</br>
-[¿Qué es Postman?](#texto)</br>
 
 
 Una API o Application Programming Interface
@@ -291,10 +288,15 @@ Permisos y autentificación
 > Safety : A safe operation is one that does not modify the state of the server. GET is considered a safe operation, as it does not change anything on the server. However, POST, PUT, and DELETE are not safe, as they can alter server state.
 
 
+### ARQUITECTURA DE UNA APLICACIÓN WEB
+
+![Arquitectura de un aplicación web](/images/webapp_architecture.png)
+
 
 ### ARCHIVOS JSON
 
-JavaScript Object Notation
+Es el formato más usado para el intercabio de información entre la API y el cliente.
+El nombre de este formato de archivos viene de *JavaScript Object Notation*. 
 
 
 
