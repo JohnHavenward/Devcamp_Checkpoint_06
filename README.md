@@ -6,11 +6,11 @@
 [¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?](#texto)</br>
 [¿Cuáles son los tres verbos de API?](#texto)</br>
 [¿Es MongoDB una base de datos SQL o NoSQL?](#texto)</br>
-[¿Qué es una API?](#texto)</br>
+[¿Qué es una API?](#api)</br>
 [¿Qué es Postman?](#texto)</br>
 [¿Qué es el polimorfismo?](#texto)</br>
-[¿Qué es un método dunder?](#texto)</br>
-[¿Qué es un decorador de python?](#texto)</br>
+[¿Qué es un método dunder?](#métodos-dunder)</br>
+[¿Qué es un decorador de python?](#decoradores)</br>
 </br>
 
 
@@ -30,6 +30,7 @@ La clase es la parte teórica que no podemos encontrar directamente presente en 
 
 ```
 
+![Mito de la cueva](/images/mito_cueva.png)
 
 </br>
 
@@ -115,40 +116,34 @@ Nótese que aunque por su sintaxis un atributo puede parecer un método no se us
 
 ### MÉTODOS
 
-Un método es una función que forma parte de una clase. La única diferencia con una función normal de python es que un método siempre debe estar asociado a una clase.
+Un método es una función que forma parte de una clase. La única diferencia con una función normal de python es que un método siempre debe estar asociado a una clase. Se pueden definir tantos métodos como se quiera dentro de una clase.
 
-Una clase puede contener tantos métodos como se quiera. 
-</br>
+Cuando definimos un método el primer parámetro siempre debe ser `self`. Este hace referencia a la instancia que la llama y sirve para acceder a sus atributos y métodos. El uso de del nombre *self* es totalmente arbitrario y simplemente se trata de una convención.
 
+Existen principalmente cuatro tipos diferentes de métodos y son los siguientes:
 
-#### PARÁMETROS SELF Y CLS
+- Métodos de instancia
+- Métodos de clase
+- Métodos estáticos
+- Métodos abstractos
 
-Cuando definimos un método en una clase el primer parámetro siempre debe ser `self`. Este hace referencia al propio objeto que la llama y sirve para acceder a sus atributos y métodos.
-
-
-Los métodos de una clase pueden 
-
-> El parámetro self es una referencia a la instancia actual de la clase y se utiliza para acceder a variables que pertenecen a la clase.
-
-El uso de del nombre *self* es totalmente arbitrario. Se trata de una convención acordada por los usuarios de Python, usada para referirse a la instancia que llama al método, pero podría ser cualquier otro nombre. Lo mismo ocurre con "cls", que veremos a continuación.
 </br>
 
 
 #### MÉTODOS DE INSTANCIA
 
+Los métodos de instancia 
+
 > Los métodos de instancia son los métodos normales, de toda la vida, que hemos visto anteriormente. Reciben como parámetro de entrada self que hace referencia a la instancia que llama al método. También pueden recibir otros argumentos como entrada.
 
-> Para saber más: El uso de "self" es totalmente arbitrario. Se trata de una convención acordada por los usuarios de Python, usada para referirse a la instancia que llama al método, pero podría ser cualquier otro nombre. Lo mismo ocurre con "cls", que veremos a continuación.
+</br>
 
 ```python
 class Clase:
     def metodo(self, arg1, arg2):
         return 'Método normal', self
-````
 
-Y como ya sabemos, una vez creado un objeto pueden ser llamados.
 
-```python
 mi_clase = Clase()
 mi_clase.metodo("a", "b")
 # ('Método normal', <__main__.Clase at 0x10b9daa90>)
@@ -164,7 +159,7 @@ En vista a esto, los métodos de instancia:
 
 #### MÉTODOS DE CLASE
 
-> A diferencia de los métodos de instancia, los métodos de clase reciben como argumento cls, que hace referencia a la clase. Por lo tanto, pueden acceder a la clase pero no a la instancia.
+> A diferencia de los métodos de instancia, los métodos de clase reciben como argumento `cls` , que hace referencia a la clase. Por lo tanto, pueden acceder a la clase pero no a la instancia.
 
 ```python
 class Clase:
@@ -193,8 +188,11 @@ Por lo tanto, los métodos de clase:
 
 #### MÉTODOS ESTÁTICOS
 
+Los métodos estáticos se definen con el decorador `@staticmethod` y no tienen como parámetro ni la instancia ni la clase. Es por ello por lo que el uso de estos métodos previenen el poder modificar la clase o la instancia y son usados como métodos que aportan utilidades concretas.
 
-> Por último, los métodos estáticos se pueden definir con el decorador @staticmethod y no aceptan como parámetro ni la instancia ni la clase. Es por ello por lo que no pueden modificar el estado ni de la clase ni de la instancia. Pero por supuesto pueden aceptar parámetros de entrada.
+Los métodos estáticos se pueden ver como funciones normales con la particularidad de que van ligadas a una clase concreta.
+
+</br>
 
 ```python
 class Clase:
@@ -210,16 +208,14 @@ mi_clase.metodoestatico()
 # 'Método estático'
 ```
 
-
-> Por lo tanto el uso de los métodos estáticos pueden resultar útil para indicar que un método no modificará el estado de la instancia ni de la clase. Es cierto que se podría hacer lo mismo con un método de instancia por ejemplo, pero a veces resulta importante indicar de alguna manera estas peculiaridades, evitando así futuros problemas y malentendidos.
-
-En otras palabras, los métodos estáticos se podrían ver como funciones normales, con la salvedad de que van ligadas a una clase concreta.
 </br>
 
 
 #### MÉTODOS ABSTRACTOS
 
-> Como ya hemos visto los métodos abstractos son aquellos que son declarados pero no tienen una implementación. También hemos visto como Python nos obliga a implementarlos en la clases que heredan de nuestro interfaz. Esto es posible gracias al decorador @abstractmethod.
+Los métodos abstractos son aquellos que son declarados pero no tienen una implementación directa en la clase. Su finalidad es que las clases que hereden de esta estén obligadas a hacer su propia implementación de este método. Se definen con el decorador `@abstractmethod` y son frecuentemente usados crear interfaces que faciliten la comunicación entre diferentes clases. Vemos un ejemplo a continuación:
+
+</br>
 
 ```python
 from abc import ABC, abstractmethod
@@ -261,76 +257,195 @@ class Clase(metaclass=ABCMeta):
 
 
 
-
+</br></br></br></br></br>
 
 
 
 
 # API
 
+Las siglas API provienen de *Application Programming Interface* y su principal función es servir de intermediario entre dos sistemas. Una API permite que una aplicación se comunique con otra y pida datos o acciones específicas.
 
-Una API o Application Programming Interface
-
-
-> Una API (del inglés, application programming interface, en español, interfaz de programación de aplicaciones)1​ es una pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades. Una API es un intermediario entre dos sistemas, que permite que una aplicación se comunique con otra y pida datos o acciones específicas.
-
-REST API  RESTful
-
-Servidor Cliente
+Una llamada a la API, o solicitud API, permite a una aplicación solicitar datos o servicios de otra aplicación. La mayoría de las aplicaciones web realizan regularmente llamadas a la API.
 
 
+
+Para ser útil, una API tiene que tener documentación. La documentación indica, entre otras cosas, qué tipos de solicitudes acepta la API, qué puede hacer la API, cómo formatea sus respuestas y cuáles son sus puntos finales. Los desarrolladores pueden revisar la documentación de una API e incorporar esta información cuando desarrollan sus aplicaciones.
+
+
+
+- **Request** - es la solicitud envidada por el cliente
+- **Response** - es la respuesta dada por el servidor
+
+Request y body y resource
+
+carga útil de la petición
 
 Permisos y autentificación
 
 
-> HTTP verbs are the building blocks of REST API interactions. They define the actions that clients can perform on resources and play a crucial role in ensuring proper resource management. Understanding the semantics of these verbs, as well as their idempotent and safe characteristics, is fundamental in designing effective and predictable RESTful APIs.
 
-> Safety : A safe operation is one that does not modify the state of the server. GET is considered a safe operation, as it does not change anything on the server. However, POST, PUT, and DELETE are not safe, as they can alter server state.
 
+
+
+
+
+
+
+
+
+
+
+</br>
 
 ### ARQUITECTURA DE UNA APLICACIÓN WEB
 
+La estructura básica de una aplicación web consta de los siguientes elementos:
+
+- **CLIENT** - es el cliente o App que solicita la información
+- **API** - es el intermediario entre el cliente y el servidor
+- **SERVER** - es el servidor web que suministra la información solicitada
+- **DATABASE** - es la base de datos donde el servidor guarda toda la información
+
+</br>
+
+En el siguente diagrama podemos ver estos elementos y cómo se comunican entre sí: 
+
+</br>
+
 ![Arquitectura de un aplicación web](/images/webapp_architecture.png)
+
+</br>
+
+
+Para entender bien el funcionamiento de una aplicación web y sus diferentes partes, en especial la función que cumple la API, resulta muy útil hacer una analogía con un restaurante.
+
+Cuando un cliente entra a un restaurante y ve el menú disponible no va directamente a la cocina a servirse su plato. Es el camarero el encargado de atender a los diferentes clientes del restaurante y tomar nota de sus solicitudes para posteriormente comunicárselas a cocina. Cumple así la función de la API.
+
+La cocina puede entenderse como el servidor web donde se preparan todos los platos solicitados. De igual forma la despensa donde se guardan todos los ingredientes puede ser vista como una base de datos. Esos ingrediente no pueden servirse directamente al cliente, deben ser procesados antes de ser servidos.
+
+Una vez preparados los platos solicitados es el camarero quien se los lleva al cliente. En el caso de que falte algún ingrediente o el plato pedido no pueda ser preparado es el camarero el encargado de pasar la información entre la cocina y el cliente y tratar de buscar una solución.
+
+Las funciones del camarero son variadas y muy importantes para el correcto funcionamiento del restaurante. Ayuda a mantener un orden y dar tiempo a los cocineros de preparar todos los platos pedidos a la vez que se asegura de que a cada cliente se le sirva el plato que ha pedido y no el de otro por error. También comprueba de que todas las solicitudes que hacen los clientes puedan prepararse y no estén pidiendo algo que no esté en la carta. 
+
+Entendida la analogía entre el camarero y la API se puede ver que es una pieza clave en la comunicación entre el cliente y y el servidor.
+
+</br>
+
+Se muestra una representación de esta analogía entre una aplicación web y un restaurante a continuación:
+
+</br> 
+
+![Analogía API restaurante](/images/api_restaurant_analogy.png)
+
+</br>
 
 
 ### ARCHIVOS JSON
 
-Es el formato más usado para el intercabio de información entre la API y el cliente.
-El nombre de este formato de archivos viene de *JavaScript Object Notation*. 
+El nombre de formato JSON proviene de *JavaScript Object Notation* ya que su estructura es muy similar a la de un objeto de de JavaScript. 
+
+Los archivos en formato `.json` son los más usados para el intercambio de información debido a que solo contienen texto plano.  Es por eso que pueden enviarse fácilmente entre computadoras y tienen una compatibilidad muy alta con la mayoría de lenguajes de programación.
+
+En el siguiente ejemplo de archivo `.json` se define un objeto con tres propiedades y sus respectivos valores:
+
+</br>
+
+```json
+{
+    "fruit": "Apple",
+    "size": "Large",
+    "color": "Red"
+}
+```
+
+</br>
+
+Podemos ver otro ejemplo de archivo `.json` en el que se ve claramente su estructura jerarquizada a continuación:
 
 
-
-### VERBOS HTTP
-
-Los verbos HTTP son fundamentales en la comunicación entre cliente y servidor ya que indican la acción a realizar
-instrucciones
+</br>
 
 
+```json
+{
+    "quiz": {
+        "sport": {
+            "q1": {
+                "question": "Which one is correct team name in NBA?",
+                "options": [
+                    "New York Bulls",
+                    "Los Angeles Kings",
+                    "Golden State Warriros",
+                    "Huston Rocket"
+                ],
+                "answer": "Huston Rocket"
+            }
+        },
+        "maths": {
+            "q1": {
+                "question": "5 + 7 = ?",
+                "options": [
+                    "10",
+                    "11",
+                    "12",
+                    "13"
+                ],
+                "answer": "12"
+            },
+            "q2": {
+                "question": "12 - 8 = ?",
+                "options": [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                ],
+                "answer": "4"
+            }
+        }
+    }
+}
+```
 
-**GET** solicita información de un recurso al servidor. No provoca ningún cambio en el servidor. 
+</br>
 
-**POST** crea un nuevo recurso en el servidor. Junto a la solicitud el cliente debe enviar la información para crear el nuevo recurso.
 
-**PUT** actualiza un recurso en el servidor. El cliente debe enviar el recurso al completo al servidor incluso si este ha sido modificado levemente. actualiza completamente el recurso
+### MÉTODOS HTTP
 
-**PATCH** actualiza algunas partes del recurso
+Los métodos HTTP son fundamentales en la comunicación entre cliente y servidor ya que indican la acción a realizar con el recurso especificado. Aunque estos también pueden ser sustantivos, estos métodos de solicitud a veces son llamados HTTP verbs. Es importante resaltar que siempre deben escribirse todas sus letras en mayúsculas.
 
-**DELETE** borra un recurso en el servidor. El cliente que envía la solicitud debe indicar la información a eliminar.
+A continuación vemos un lista
 
-idempotencia
 
-> El modo PUT reemplaza todas las representaciones actuales del recurso de destino con la carga útil de la petición.
-> El método PATCH es utilizado para aplicar modificaciones parciales a un recurso.
+Método | Descripción
+:---: | -----------
+**GET**     | solicita la información completa de un recurso del servidor. No provoca ningún cambio en el servidor. 
+**POST**    | crea un nuevo recurso en el servidor. Junto a la solicitud el cliente debe enviar la información para crear el nuevo recurso.
+**PUT**     | reemplaza completamente la información de un recurso en el servidor. El cliente debe enviar el recurso al completo al servidor incluso si este ha sido modificado levemente. actualiza completamente el recurso.
+**PATCH**   | aplica modificaciones parciales a un recurso
+**DELETE**  | borra un recurso en el servidor. El cliente que envía la solicitud debe indicar el recurso a eliminar.
 
-> The most commonly used HTTP methods are GET, POST, PUT, PATCH, HEAD, DELETE, and OPTIONS.
+</br>
+
+Podemos ver una lista completa de métodos HTTP en el siguiente [enlace](https://webconcepts.info/concepts/http-method/)
+
+</br>
+
 
 ### SISTEMA REST
 
 Los verbos Http involucrados en un sistema REST son GET, POST, PUT, PATCH y DELETE
 
+
+En la arquitectura REST, los clientes envían solicitudes para recuperar o modificar recursos y los servidores envían respuestas a estas solicitudes. Echemos un vistazo a las formas estándar de realizar solicitudes y enviar respuestas.
+
 > REST es una arquitectura para aplicaciones en redes (REpresentational State Transfer). RESTful por otro lado, son programas (a modo de web service o API), basados en REST. Muchas veces se usan ambos terminos como sinonimos.
 
-### SISTEMAS CRUD
+> La API RESTful es una interfaz que dos sistemas de computación utilizan para intercambiar información de manera segura a través de Internet. La mayoría de las aplicaciones para empresas deben comunicarse con otras aplicaciones internas o de terceros para llevar a cabo varias tareas
+
+> Las API RESTful admiten este intercambio de información porque siguen estándares de comunicación de software seguros, confiables y eficientes.
+
 
 El término *CRUD* se refiere a las iniciales de las cuatro operaciones básicas que se pueden llevar a cabo en la mayoría de las bases de datos y sistemas de gestión de información:
 
@@ -340,58 +455,270 @@ El término *CRUD* se refiere a las iniciales de las cuatro operaciones básicas
 - [**D**]ELETE - borrar
 
 
+Haciendo peticiones
+REST requiere que un cliente realice una solicitud al servidor para recuperar o modificar datos en el servidor. Una solicitud generalmente consta de:
+
+- **HTTP verb**un verbo HTTP, que define qué tipo de operación realizar
+- **header** un encabezado, que permite al cliente transmitir información sobre la solicitud
+- **path** un camino hacia un recurso
+- **body** un cuerpo de mensaje opcional que contiene datos
 
 
-### HTTP RESPONSE STATUS CODES
 
-> HTTP response status codes indicate whether a specific HTTP request has been successfully completed. Responses are grouped in five classes:
+</br>
 
+
+### CÓDIGOS DE ESTADO DE RESPUESTA HTTP
+
+Cuando un cliente hace una solicitud siempre recibe una respuesta. La respuesta recibida no tiene por qué ser la esperada y es por ello que existen una gran variedad de códigos de estado que nos ayudan a identificar cual ha podido ser el error de haberlo habido. Todos los códigos de estado posibles empiezan por uno de los cinco números que se identifican con las cinco categorías en las que se agrupan. Estas categorías son las siguientes:
+
+</br>
 
 1. Respuestas informativas (100 – 199)
 2. Respuestas satisfactorias (200 – 299)
-3. Redirecciones (300 – 399)
-4. Errores de los clientes (400 – 499)
-5. Errores de los servidores (500 – 599)
+3. Respuestas de redireccionamiento (300 – 399)
+4. Respuestas de errores de los clientes (400 – 499)
+5. Respuestas de errores de los servidores (500 – 599)
+
+</br>
+
+En total hay 63 códigos posibles y podemos ver una descripción de todos ellos a continuación: 
+
+</br>
+
+Códido | Descripción
+:----: | ----------- 
+1XX | Respuestas informativas
+100 | Continúa en
+101 | Protocolos de conmutación
+102 | Procesando
+103 | Primeras pistas
+2XX | Respuestas satisfactorias
+200 | OK
+201 | Creado
+202 | Aceptado
+203 | Información no autorizada
+204 | Sin contenido
+205 | Restablecer contenido
+206 | Contenido parcial
+207 | Multiestado
+208 | Ya comunicado
+226 | MI Utilizado
+3XX | Respuestas de redireccionamiento
+300 | Varias opciones
+301 | Movido permanentemente
+302 | Encontrado
+303 | Ver otros
+304 | No modificado
+307 | Redireccionamiento temporal
+308 | Redireccionamiento permanente
+4XX | Respuestas de errores de los clientes
+400 | Bad request
+401 | No autorizado
+402 | Pago requerido
+403 | Prohibido
+404 | No se ha encontrado
+405 | Método no permitido
+406 | No aceptable
+407 | Se requiere autenticación proxy
+408 | Tiempo de espera de la solicitud
+409 | Conflicto
+410 | Gone
+411 | Longitud requerida
+412 | Condición previa fallida
+413 | Contenido demasiado grande
+414 | URI demasiado largo
+415 | Tipo de soporte no compatible
+416 | Alcance no satisfactorio
+417 | Expectativa fallida
+421 | Petición mal dirigida
+422 | Contenido no procesable
+423 | Bloqueado
+424 | Dependencia fallida
+425 | Demasiado pronto
+426 | Actualización necesaria
+428 | Condición previa requerida
+429 | Demasiadas peticiones
+431 | Los campos de la cabecera de la solicitud son demasiado grandes
+451 | No disponible por motivos legales
+5XX | Respuestas de errores de los servidores 
+500 | Error interno del servidor
+501 | No aplicado
+502 | Bad gateway
+503 | Servicio no disponible
+504 | Tiempo de espera de la puerta de enlace
+505 | Versión HTTP no admitida
+506 | Variante también negociada
+507 | Almacenamiento insuficiente
+508 | Bucle detectado
+511 | Autenticación de red necesaria
+
+</br> 
 
 
-[link](https://developer.mozilla.org/es/docs/Web/HTTP/Status)
+Podemos ver una descripción más detallada de todos ellos en el siguiente [enlace](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
+</br>
 
+![502 Bad Gateway](/images/502_status_code.png)
+
+</br>
 
 
 ### POSTMAN
 
+Postman es uno de los programas más populares para trabajar en el desarrollo de APIs. Es gratuito y lo puedes usar sin límites, aunque también tiene su versión premium con características extra. Básicamente permite configurar rutas de endpoints del API y ejecutarlas, para ejercitar el backend de las aplicaciones.
+
+Gracias a Postman podemos guardar todas las request que queramos, para tenerlas preparadas y poder ejecutarlas las veces que haga falta. Esto nos facilita mucho el día a día en el desarrollo, pues generalmente tendremos que probar una ruta diversas veces hasta que comprobemos que todo funciona como se esperaba.
+
+Además, Postman permite trabajar cómodamente con todos los métodos del HTTP, como GET, POST, PUT, PATCH, DELETE. Si no tuviéramos algo como Postman necesitaríamos generar código del cliente, con Javascript y generalmente Ajax para poder realizar los request al servidor y probar todos esos métodos, ya que un navegador cuando accedemos a un recurso mediante su URL solo nos permite hacer un simple GET.
+
+
+
+
+
 Postman es un software de uso gratuito popularmente usado para el desarrollo de APIs. Su principal función es permitirnos comunicarnos directamente con una API y emular las solicitudes que posteriormente harán loa aplicaciones web que se comuniquen con ella.
 
-Podemos realizar cualquiera de las acciones HTTP y recibir la respuesta dada por la API para poder analizarla. El uso de herramientas como postman es de vital importancia para comprobar el funcionamiento de una API durante su desarrollo. Su principal ventaja es que nos ahorra tener que desarrollar una aplicación web   
+Podemos realizar cualquiera de las acciones HTTP y recibir la respuesta dada por la API para poder analizarla. El uso de herramientas como postman es de vital importancia para comprobar el funcionamiento de una API durante su desarrollo. Su principal ventaja es que nos ahorra tener que desarrollar una aplicación web
 
 Podemos usar la interfaz gráfica del programa para poder realizar las diferentes solicitudes
 
+
 [postman.com](https://www.postman.com/)
+
+![Postman](/images/postman_screenshot.png)
 
 Permite automatizar las peticiones
 
-> Postman es una popular herramienta utilizada para probar APIs, permitiendo a los desarrolladores enviar peticiones a servicios web y ver respuestas. Exploraremos cómo Postman puede ser una herramienta esencial para probar APIs eficientemente. Test de regresión
+> Postman es una popular herramienta utilizada para probar APIs, permitiendo a los desarrolladores enviar peticiones a servicios web y ver respuestas. Exploraremos cómo Postman puede ser una herramienta esencial para probar APIs eficientemente.
 
 > endpoints
+
 > cuerpo de la solicitud
 
 
 
 
 
+</br></br></br></br></br>
 
 
 
 
 
-# BASES DE DATOS
-[¿Es MongoDB una base de datos SQL o NoSQL?](#texto)</br>
+# MONGODB
+
+MongoDB es una popular base de datos NoSQL de código abierto utilizada por empresas y particulares que necesitan almacenar grandes cantidades de datos. Está diseñada para ofrecer escalabilidad, flexibilidad y rendimiento, lo que la convierte en una de las bases de datos más populares del mundo. Además, es compatible con muchos sistemas operativos y lenguajes de programación.
+
+</br>
+
+![MongoDB](/images/MongoDB.png)
+
+</br>
+
+A diferencia de las bases de datos relacionales, que se basan en una estructura tabular estricta, las bases de datos NoSQL utilizan documentos similares a JSON con esquemas dinámicos para almacenar y consultar los datos.
+
+Los datos no tienen que tener un esquema preconcebido y esto resulta muy útil porque la mayoría de los datos que generan las aplicaciones web y los dispositivos IoT no están estructurados y no se pueden guardar en una base de datos SQL tradicional. Además, muchas empresas almacenan los datos antes de saber cómo se utilizarán en el futuro.
+
+La flexibilidad que aporta esta naturaleza dinámica es la que hace que MongoDB sea tan potente y eficiente. Por ello es utilizado en una gran variedad de aplicaciones entre las que se incluyen:
+
+- **Sitios y aplicaciones web** - almacenar datos de usuario y contenidos
+- **Análisis en tiempo real** - almacenar y analizar grandes cantidades de datos en tiempo real de forma rápida y sencilla
+- **Sistemas de gestión de contenidos** - almacenar contenidos y medios
+- **Aplicaciones móviles** - almacenar datos de usuarios y dispositivos móviles
+- **Redes sociales** - almacenar y gestionar perfiles de usuario, publicaciones y otros datos
+- **Aplicaciones sanitarias** - almacenar y gestionar grandes cantidades de datos de pacientes de forma segura
+- **Plataformas de comercio electrónico** - almacenar datos de clientes, pedidos y otra información
+
+</br>
 
 
+### ESTRUCTURA DE MONGODB
+
+Una base de datos de MongoDB no se basa en tablas, columnas y filas como lo hacen las bases de datos relacionales tradicionales. En MongoDB los datos se almacenan como colecciones, documentos y campos. En la siguiente tabla podemos ver una equivalencia entre los términos usados en ambas bases de datos:
+
+Término SQL |     | Término MongoDB
+:---------: | :-: | :-------------:
+Database | - | Database
+Table    | - | Collection
+Row      | - | Document
+Column   | - | Field
+Index    | - | Index
+
+</br>
 
 
+Una base de datos MongoDB es un contenedor de colecciones de igual forma que un RDMS es un contenedor de tablas para las bases de datos relacionales. Un servidor MongoDB puede almacenar múltiples bases de datos.
 
+Una colección es un grupo de documentos de MongoDB y se corresponde con una tabla creada en una base de datos relacional. No tiene una estructura predefinida.
+
+Un documento es el equivalente a un registro en una base de datos tradicional y se compone de pares de nombre y valor que sirven como unidad básica de datos. Cada campo es una asociación entre un nombre y un valor y es similar a una columna en una base de datos relacional.
+
+Cada documento es diferente y puede tener un número variable de campos ya que su estructura corresponde a la forma en que los desarrolladores construyen sus clases y objetos en el lenguaje de programación utilizado. Al carecer de un esquema predefinido los campos pueden añadirse a voluntad y eso facilita la representación de relaciones jerárquicas u otras estructuras complejas.
+
+</br>
+
+
+A continuación se muestra un diagrama de la estructura de una base de datos MongoDB:
+
+</br>
+
+![Estructura MongoDB](/images/MongoDB_estructura.png)
+
+</br>
+
+
+### CARACTERÍSTICAS DE MONGODB
+
+Pese a que existen otras bases de datos NoSQL, MongoDB ofrece una serie de grandes características que la hacen destacar del resto. Algunas de esas características son las siguientes:
+
+- Alto rendimiento: MongoDB está diseñada para ofrecer un alto rendimiento y escalabilidad permitiendo así a las empresas manejar cantidades masivas de datos con facilidad.
+- Modelado de datos flexible: MongoDB facilita el almacenamiento de diferentes tipos de datos en la misma base de datos. Esto permit un desarrollo más fácil y rápido.
+- Alta disponibilidad: MongoDB está diseñada para permanecer disponible incluso cuando hay problemas de hardware o de red, lo que ayuda a garantizar que los datos estén siempre accesibles.
+- Transacciones ACID multidocumento: MongoDB soporta transacciones atómicas multidocumento. Esto permite realizar múltiples operaciones en una única transacción.
+- Búsqueda integrada: MongoDB tiene capacidades integradas de búsqueda de texto para permitir a los usuarios encontrar rápida y fácilmente los datos que necesitan.
+- Alta seguridad: MongoDB está diseñado pensando en la seguridad. Ofrece funciones avanzadas de autenticación y cifrado para garantizar que los datos se mantienen seguros.
+- Facilidad de uso: MongoDB es fácil de configurar y usar. Tiene una interfaz de usuario sencilla que facilita a los usuarios una rápida puesta en marcha.
+
+</br>
+
+
+También cabe destacar que MongoDB incluye una interfaz de aplicación-cliente y un sistema de archivos que permiten a los usuarios interactuar con la base de datos utilizando lenguajes de programación compatibles como Java, JavaScript y Python. MongoDB  incluye igualmente un lenguaje de consulta del lado del servidor, conocido como *MongoDB Query Language* (MQL), que proporciona a los usuarios una sintaxis expresiva para consultar datos.
+
+</br>
+
+
+### BASES DE DATOS RELACIONALES
+
+Las bases de datos relacionales son sistemas de bases de datos que utilizan tablas para almacenar y organizar la información. Estas tablas contienen una o más categorías de datos en forma de columnas y cada fila o registro contiene un conjunto de datos definidos por cada una de las categorías. Es habitual que muchas de estas tablas estén interrelacionadas entre sí.
+
+Algunas ventajas de las base de datos relacionales son:
+
+- Fáciles de categorizar y almacenar datos estructurados para consultas y filtrado más rápidos
+- Fáciles de escalar y no dependen de una organización física
+- Modelo de base de datos tradicional muy desarrollado y bien comprendido
+- Alto nivel de seguridad
+
+</br>
+
+Un RDBMS (*Relational DataBase Management System*) es un sistema de gestión de bases de datos relacionales. Se usa para crear y gestionar estas bases de datos y también proporciona una forma sistemática de crear, recuperar, actualizar y gestionar los datos.
+
+El lenguaje SQL (*Structured Query Language*) es el usado de forma estándar para trabajar con bases de datos relacionales. Sirve para comunicarse con el RDBMS y permite llevar a cabo tareas como:
+
+- Crear una tabla e insertar datos en ella
+- Consulta y filtrado de datos
+- Modificación y actualización de datos
+- Eliminar datos o tablas
+
+</br>
+
+Las bases de datos NoSQL deben su nombre a que no usan el estándar del lenguaje SQL para poder gestionar sus datos. Hay varias diferencias importantes entre las bases de datos NoSQL y SQL. Vemos un resumen de ellas en la siguiente tabla:
+
+</br>
+
+![Tabla comparativa entre NoSQL y SQL](/images/tabla_NoSQL_vs_SQL.png)
+
+</br></br></br></br></br>
 
 
 
