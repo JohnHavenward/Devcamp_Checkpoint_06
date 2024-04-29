@@ -1,14 +1,14 @@
-<!-- <link href="style.css" rel="stylesheet"></link> -->
+
 
 # PREGUNTAS TEÓRICAS
 
-[¿Para qué usamos Clases en Python?](#texto)</br>
-[¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?](#texto)</br>
-[¿Cuáles son los tres verbos de API?](#texto)</br>
-[¿Es MongoDB una base de datos SQL o NoSQL?](#texto)</br>
+[¿Para qué usamos Clases en Python?](#clases)</br>
+[¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?](#constructor)</br>
+[¿Cuáles son los tres verbos de API?](#métodos-http)</br>
+[¿Es MongoDB una base de datos SQL o NoSQL?](#mongodb)</br>
 [¿Qué es una API?](#api)</br>
-[¿Qué es Postman?](#texto)</br>
-[¿Qué es el polimorfismo?](#texto)</br>
+[¿Qué es Postman?](#postman)</br>
+[¿Qué es el polimorfismo?](#polimorfismo)</br>
 [¿Qué es un método dunder?](#métodos-dunder)</br>
 [¿Qué es un decorador de python?](#decoradores)</br>
 </br>
@@ -17,20 +17,46 @@
 
 # CLASES
 
+Python es un lenguaje de programación orientado a objetos y por tanto emplea los conceptos de clase y objeto. La programación orientada a objetos está basada en cuatro principios o pilares básicos que son los siguientes:
 
-### PROGRAMACIÓN ORIENTADA A OBJETOS
+- **Herencia** - reutilizar el código compartiéndolo entre varios objetos.
+- **Encapsulamiento** - proteger la información de manipulaciones no autorizadas.
+- **Abstracción** - representar y manejar conceptos complejos de manera simplificada.
+- **Polimorfismo** - ejecutar la misma orden con varios objetos y que respondan de formas diferentes.
 
-Una clase puede entenderse como una plantilla 
+</br>
 
-Puede resultar útil para entender el concepto de una clase fijarse en el mito de la cueva descrito por Platón. En él la idea de un objeto puede entenderse como la clase en la que se basan el resto de 
+
+Las clases son la pieza clave para poder cumplir esos principios y en esencia lo que hacen es agrupar una serie de variables y funciones en un único elemento. Una vez definido, ese elemento puede ser construido múltiples veces y cada copia es única e independiente del resto. Las clases pueden entenderse así como las "plantillas" o "modelos" que son usados para producir objetos nuevos.
+
+</br>
+
+Puede resultar útil para entender el concepto de una clase fijarse en el mito de la cueva descrito por Platón. En él la idea de un objeto es el único verdadero o perfecto y puede verse como la clase. El resto son solo sombras proyectadas y se corresponden con los objetos creados a partir de esa clase.
 
 La clase es la parte teórica que no podemos encontrar directamente presente en la realidad pero que identificamos fácilmente en los objetos reales que la representan.
+
+</br>
+
+![Mito de la cueva](/images/mito_cueva.png)
+
+</br></br>
+
+
+En python cada objeto pertenece a una clase y es la que la hace tener ciertas funciones y variables asociadas a ella.
+
+Para definir una clase debemos usar la palabra reservada `class` junto a su nombre. Por convenio la primera letra del nombre de una clase siempre de escribe en mayúsculas. Vemos un ejemplo a continuación:
+
+</br>
 
 ```python
 
 ```
 
-![Mito de la cueva](/images/mito_cueva.png)
+
+
+
+
+
 
 </br>
 
@@ -46,6 +72,17 @@ Para acceder a los métodos y atributos de la instancia se usa el operador `.` t
 ```python
 
 ```
+</br>
+
+
+Para eliminar una instancia creada podemos usar la palabra clave `del` tal y como se ve en el siguiente ejemplo:
+
+</br>
+
+```python
+del p1
+```
+
 </br>
 
 
@@ -132,9 +169,8 @@ Existen principalmente cuatro tipos diferentes de métodos y son los siguientes:
 
 #### MÉTODOS DE INSTANCIA
 
-Los métodos de instancia 
 
-> Los métodos de instancia son los métodos normales, de toda la vida, que hemos visto anteriormente. Reciben como parámetro de entrada self que hace referencia a la instancia que llama al método. También pueden recibir otros argumentos como entrada.
+Los métodos de instancia son los métodos definidos normalmente dentro de la clase. Aparte de `self` pueden definir otros parámetros.
 
 </br>
 
@@ -159,18 +195,22 @@ En vista a esto, los métodos de instancia:
 
 #### MÉTODOS DE CLASE
 
-> A diferencia de los métodos de instancia, los métodos de clase reciben como argumento `cls` , que hace referencia a la clase. Por lo tanto, pueden acceder a la clase pero no a la instancia.
+> A diferencia de los métodos de instancia, los métodos de clase reciben como argumento `cls` , que hace referencia a la clase. Por lo tanto, 
+
+Los métodos de clase se definen con el decorador `@classmethod` y usan el parámetro `cls` en lugar de `self`. Este parámetro hace referencia a la clase del objeto y no a la instancia. Es por ello que solo pueden acceder y modificar a la clase y en ningún caso pueden hacerlo a la propia instancia.
+
+
+
+Pueden llamarse desde la clase o la instancia indistintamente.
 
 ```python
 class Clase:
     @classmethod
     def metododeclase(cls):
         return 'Método de clase', cls
-```
 
-Se pueden llamar sobre la clase.
 
-```python
+
 Clase.metododeclase()
 # ('Método de clase', __main__.Clase)
 Pero también se pueden llamar sobre el objeto.
@@ -179,16 +219,12 @@ mi_clase.metododeclase()
 # ('Método de clase', __main__.Clase)
 ```
 
-Por lo tanto, los métodos de clase:
-
-- No pueden acceder a los atributos de la instancia.
-- Pero si pueden modificar los atributos de la clase.
 </br>
 
 
 #### MÉTODOS ESTÁTICOS
 
-Los métodos estáticos se definen con el decorador `@staticmethod` y no tienen como parámetro ni la instancia ni la clase. Es por ello por lo que el uso de estos métodos previenen el poder modificar la clase o la instancia y son usados como métodos que aportan utilidades concretas.
+Los métodos estáticos se definen con el decorador `@staticmethod` y no tienen como parámetro ni la instancia ni la clase. Es por ello por lo que el uso de estos métodos previenen el poder modificarlas y son usados como métodos que aportan utilidades concretas.
 
 Los métodos estáticos se pueden ver como funciones normales con la particularidad de que van ligadas a una clase concreta.
 
@@ -200,8 +236,9 @@ class Clase:
     def metodoestatico():
         return "Método estático"
         
-mi_clase = Clase()
 Clase.metodoestatico()
+
+mi_clase = Clase()
 mi_clase.metodoestatico()
 
 # 'Método estático'
@@ -213,7 +250,9 @@ mi_clase.metodoestatico()
 
 #### MÉTODOS ABSTRACTOS
 
-Los métodos abstractos son aquellos que son declarados pero no tienen una implementación directa en la clase. Su finalidad es que las clases que hereden de esta estén obligadas a hacer su propia implementación de este método. Se definen con el decorador `@abstractmethod` y son frecuentemente usados crear interfaces que faciliten la comunicación entre diferentes clases. Vemos un ejemplo a continuación:
+Los métodos abstractos son aquellos que son declarados pero no tienen una implementación directa en la clase. Su finalidad es que las clases que hereden de esta estén obligadas a hacer su propia implementación de este método.
+
+Se definen con el decorador `@abstractmethod` y son frecuentemente usados crear interfaces que faciliten la comunicación entre diferentes clases. Vemos un ejemplo a continuación:
 
 </br>
 
@@ -230,31 +269,218 @@ class Clase(metaclass=ABCMeta):
 
 ### HERENCIA
 
+La herencia es un proceso mediante el cual se puede crear una clase hija o *child* que hereda de una clase padre o *parent*.
+Esto permite que la clase hija acceda a los métodos y atributos definidos por la clase padre. Igualmente una clase hija puede definir sus propios métodos y atributos o incluso sobrescribir los de la clase padre.
+
+Se puede crear una clase hija simplemente pasando como parámetro la clase padre de la que queremos heredar. Vemos un ejemplo de ello a continuación:
+
+</br>
+
+```python
+# Definimos una clase padre
+class Animal:
+    pass
+
+# Creamos una clase hija que hereda de la padre
+class Perro(Animal):
+    pass
+```
 
 </br>
 
 
+El proceso de la herencia de clases resulta muy ventajoso porque nos permite ahorrar la repetición de código y nos ayuda a tener bien organizadas todas nuestras clases. Facilita el mantenimiento del programa y la implementación de nuevas funcionalidades.
 
-### POLIFORMISMO
-
+Sin embargo, esto requiere un esfuerzo previo para saber cómo vamos a planificar la herencia entre las diferentes clases. Se debe hacer en función de qué clases se parecen más y por tanto comparten un mayor número de métodos y atributos.
 
 </br>
 
 
+Podemos ver una comparación práctica de la herencia de clases viendo la clasificación de los distintos organismos que se hace en biología. Cada especie comparte muchas similitudes con otras especies a diferentes niveles. Por ejemplo, dos especies son más parecidas si comparten la familia que si solo comparten el reino.
+
+</br>
+
+![Arquitectura de un aplicación web](/images/biological_classification.png)
+
+</br>
+
+
+Podemos ver en el siguiente ejemplo el uso de la herencia para definir múltiples clases que comparten parcialmente las misma funcionalidad:
+ 
+</br>
+
+```python
+class Animal:
+    def __init__(self, especie, edad):
+        self.especie = especie
+        self.edad = edad
+
+    # Método genérico pero con implementación particular
+    def hablar(self):
+        # Método vacío
+        pass
+
+    # Método genérico pero con implementación particular
+    def moverse(self):
+        # Método vacío
+        pass
+
+    # Método genérico con la misma implementación
+    def describeme(self):
+        print("Soy un Animal del tipo", type(self).__name__)
+
+
+
+# Perro hereda de Animal
+class Perro(Animal):
+    pass
+
+mi_perro = Perro('mamífero', 10)
+mi_perro.describeme()
+# Soy un Animal del tipo Perro
 
 
 
 
+class Perro(Animal):
+    def hablar(self):
+        print("Guau!")
+    def moverse(self):
+        print("Caminando con 4 patas")
+
+class Vaca(Animal):
+    def hablar(self):
+        print("Muuu!")
+    def moverse(self):
+        print("Caminando con 4 patas")
+
+class Abeja(Animal):
+    def hablar(self):
+        print("Bzzzz!")
+    def moverse(self):
+        print("Volando")
+
+    # Nuevo método
+    def picar(self):
+        print("Picar!")
 
 
-### INTERFACES
+
+
+mi_perro = Perro('mamífero', 10)
+mi_vaca = Vaca('mamífero', 23)
+mi_abeja = Abeja('insecto', 1)
+
+mi_perro.hablar()
+mi_vaca.hablar()
+# Guau!
+# Muuu!
+
+mi_vaca.describeme()
+mi_abeja.describeme()
+# Soy un Animal del tipo Vaca
+# Soy un Animal del tipo Abeja
+
+mi_abeja.picar()
+# Picar!
+```
+
+</br>
+
+
+Los métodos de la clases heredadas pueden clasificarse en tres tipos diferentes:
+
+- Heredados directamente de la clase padre: describeme()
+- Heredados de la clase padre pero modificados: hablar() y moverse()
+- Creados en la clase hija por lo tanto no existentes en la clase padre: picar()
+
+</br></br>
+
+
+Por último cabe mencionar que podemos hacer uso de de la función `super()` desde la clase hija para acceder a los métodos de la clase padre.
+
+Podemos ver su uso en el siguiente ejemplo: 
+
+</br>
+
+```python
+class Animal:
+    def __init__(self, especie, edad):
+        self.especie = especie
+        self.edad = edad        
+    def hablar(self):
+        pass
+
+    def moverse(self):
+        pass
+
+    def describeme(self):
+        print("Soy un Animal del tipo", type(self).__name__)
+```
+
+</br>
+
+
+También podemos usar `super()` para ampliar el constructor de la clase padre. Vemos un ejemplo de ello a continuación:
+
+</br>
+
+```python
+class Perro(Animal):
+    def __init__(self, especie, edad, dueño):
+        super().__init__(especie, edad)
+        self.dueño = dueño
+        
+mi_perro = Perro('mamífero', 7, 'Luis')
+mi_perro.especie
+mi_perro.edad
+mi_perro.dueño
+```
+
+</br>
+
+
+### POLIMORFISMO
+
+El término polimorfismo tiene origen en las palabras griegas *polys* (muchos) y *morpho* (formas). Este concepto aplicado a la programación hace referencia a que los objetos de diferentes clases pueden ser accedidos utilizando el mismo interfaz pero que pueden tomar diferentes formas en su respuesta.
+
+Según el principio de polimorfismo podemos llamar a la misma función en diferentes objetos que no pertenecen a la misma clase.
+La respuesta a esa llamada debe estar garantizada y ser diferente y específica para cada objeto. Los comportamientos obtenidos deben así ser distintos y "tomar diferentes formas".
+
+Esta característica permite que sin alterar el código existente de un programa se puedan incorporar nuevos comportamientos y funciones aportando así flexibilidad en el diseño del software. Para hacerlo simplemente deben agregarse nuevas clases cuyo único requisito es que deben tener implementados todos los métodos necesarios usados por el programa.
+
+Una manera fácil de asegurarse de ello es que las diferentes clases hereden de la misma clase padre y que esta tenga métodos abstractos definidos en ella. Esto garantiza que todas las clases hija definan esos métodos y por tanto puedan comunicarse con el mismo interfaz.
+
+</br>
+
+
+Vemos un ejemplo de todo ello a continuación:
+
+</br>
+
+```python
+class Animal:
+    def hablar(self):
+        pass
 
 
 
+class Perro(Animal):
+    def hablar(self):
+        print("Guau!")
+
+class Gato(Animal):
+    def hablar(self):
+        print("Miau!")
 
 
 
+for animal in Perro(), Gato():
+    animal.hablar()
 
+# Guau!
+# Miau!
+```
 
 
 </br></br></br></br></br>
