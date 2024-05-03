@@ -69,6 +69,8 @@ Una clase puede tener tantas instancias creadas como se quiera.
 
 Para acceder a los métodos y atributos de la instancia se usa el operador `.` tal y como vemos a continuación:
 
+</br>
+
 ```python
 class Alerta:
     def __init__(self, identificador, hora):
@@ -89,12 +91,13 @@ alerta_2.informar() #La alerta "Comida" está programada para las 14:00h
 </br>
 
 
-Para eliminar una instancia creada podemos usar la palabra clave `del` tal y como se ve en el siguiente ejemplo:
+Para eliminar una instancia creada podemos usar la palabra clave `del`. Vemos su uso siguiendo con el ejemplo anterior:
 
 </br>
 
 ```python
-del p1
+del alerta_1
+del alerta_2
 ```
 
 </br>
