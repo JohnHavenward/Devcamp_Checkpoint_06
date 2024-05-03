@@ -49,14 +49,14 @@ Para definir una clase debemos usar la palabra reservada `class` junto a su nomb
 </br>
 
 ```python
-
+class Vehículo:
+    color = "rojo"
+    ruedas = 4
+    
+               
+print(f'El vehículo es de color {Vehículo.color} y tiene {Vehículo.ruedas} ruedas.')
+#El vehículo es de color rojo y tiene 4 ruedas.
 ```
-
-
-
-
-
-
 
 </br>
 
@@ -70,7 +70,21 @@ Una clase puede tener tantas instancias creadas como se quiera.
 Para acceder a los métodos y atributos de la instancia se usa el operador `.` tal y como vemos a continuación:
 
 ```python
+class Alerta:
+    def __init__(self, identificador, hora):
+        self.identificador = identificador
+        self.hora = hora
+  
+    def informar(self):
+        print(f'La alerta "{self.identificador}" está programada para las {self.hora}h')
 
+
+alerta_1 = Alerta("Reunión", "10:30")
+alerta_2 = Alerta("Comida", "14:00")
+
+
+print(alerta_1.identificador) #Reunión
+alerta_2.informar() #La alerta "Comida" está programada para las 14:00h
 ```
 </br>
 
@@ -97,7 +111,16 @@ Cuando creamos una instancia no es necesario hacer ninguna referencia al método
 Podemos ver un ejemplo del uso de un constructor a continuación:
 
 ```python
+class Pasajero:
+    def __init__(self, nombre, apellido, edad):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.edad = edad
 
+
+pasajero_1 = Pasajero("Ismael", "García", 57)
+pasajero_2 = Pasajero("Helena", "Salgado", 44)
+pasajero_3 = Pasajero("Lucía", "Blanco", 31)
 ```
 
 </br>
@@ -115,17 +138,48 @@ Hay dos tipos de atributos dentro de una clase:
 - Atributos de instancia
 </br>
 
-Los atributos de clase son comunes a todas las instancias y se definen directamente dentro de la clase. El valor de un atributo es único y compartido por todas las instancias y la propia clase. Si alguno de los objetos asociados a ella cambia su valor lo hace también para el resto. Podemos ver un ejemplo de ello a continuación:
+Los atributos de clase son comunes a todas las instancias y se definen directamente dentro de la clase. El valor de un atributo de clase es único y compartido por todas las instancias y la propia clase. Si alguno de los objetos asociados a ella cambia su valor lo hace también para el resto. Podemos ver un ejemplo de ello a continuación:
 
 ```python
+class Concursante:
+    premio_acumulado = 300
+  
+    def __init__(self, nombre):
+        self.nombre = nombre
 
+
+concursante_1 = Concursante("Sonia")
+concursante_2 = Concursante("Ruth")
+concursante_3 = Concursante("Nicolás")
+
+
+print(Concursante.premio_acumulado) #300
+
+Concursante.premio_acumulado += 50
+print (concursante_1.premio_acumulado) #350
+
+Concursante.premio_acumulado += 100
+print (concursante_2.premio_acumulado) #450
+
+Concursante.premio_acumulado += 250
+print (concursante_3.premio_acumulado) #700
 ```
 </br>
 
 Los atributos de instancia son propios de cada instancia y se definen dentro del método `__init__()`. Cada instancia tiene un valor propio para cada atributo.  Si una instancia cambia el valor de su atributo no afecta al resto de las instancias. Además la clase en sí no tiene definidos estos atributos y por tanto no tiene acceso a ellos. Podemos ver la definición y uso de atributos de instancia en el siguiente ejemplo:
 
 ```python
+class Cuenta:
+  def __init__(self, titular, fondos):
+    self.titular = titular
+    self.fondos = fondos
 
+
+cuenta_1 = Cuenta("Carmen", 1900)
+cuenta_2 = Cuenta("Antonio", 2700)
+
+print (cuenta_1.titular + " : " + str(cuenta_1.fondos) + "$") #Carmen : 1900$ 
+print (cuenta_2.titular + " : " + str(cuenta_2.fondos) + "$") #Antonio : 2700$
 ```
 </br>
 
@@ -143,7 +197,30 @@ Para ello se definen dos métodos:
 Podemos ver un ejemplo del uso de propiedades a continuación:
 
 ```python
+class Casa:
+    def __init__(self, precio):
+        self.__precio = precio
 
+    @property
+    def precio(self):
+        return self.__precio
+
+    @precio.setter
+    def precio(self, nuevo_valor):
+        if nuevo_valor != "":
+            print(f'Modificando el precio a {nuevo_valor}')
+            self.__precio = nuevo_valor
+        else:
+            print("Error. Se debe pasar un valor")
+            
+
+mansión = Casa("1.200.000€")
+
+mansión.precio = "900.000€"
+#Modificando el precio a 900.000€
+
+print(mansión.precio)
+#900.000€
 ```
 </br>
 
@@ -170,53 +247,55 @@ Existen principalmente cuatro tipos diferentes de métodos y son los siguientes:
 #### MÉTODOS DE INSTANCIA
 
 
-Los métodos de instancia son los métodos definidos normalmente dentro de la clase. Aparte de `self` pueden definir otros parámetros.
+Los métodos de instancia son los métodos definidos normalmente dentro de la clase. Aparte de `self` pueden definir otros parámetros tal y como vemos en el siguiente ejemplo:
 
 </br>
 
 ```python
-class Clase:
-    def metodo(self, arg1, arg2):
-        return 'Método normal', self
+class Trapo:
+    def limpiar(self, objeto):
+        print(f'Limpiando {objeto}')
 
 
-mi_clase = Clase()
-mi_clase.metodo("a", "b")
-# ('Método normal', <__main__.Clase at 0x10b9daa90>)
+mi_trapo = Trapo()
+
+
+mi_trapo.limpiar("mesa") #Limpiando mesa
+mi_trapo.limpiar("silla") #Limpiando silla
 ```
 
-En vista a esto, los métodos de instancia:
-
-- Pueden acceder y modificar los atributos del objeto.
-- Pueden acceder a otros métodos.
-- Dado que desde el objeto self se puede acceder a la clase con ` self.class`, también pueden modificar el estado de la clase
 </br>
 
 
 #### MÉTODOS DE CLASE
 
-> A diferencia de los métodos de instancia, los métodos de clase reciben como argumento `cls` , que hace referencia a la clase. Por lo tanto, 
-
 Los métodos de clase se definen con el decorador `@classmethod` y usan el parámetro `cls` en lugar de `self`. Este parámetro hace referencia a la clase del objeto y no a la instancia. Es por ello que solo pueden acceder y modificar a la clase y en ningún caso pueden hacerlo a la propia instancia.
 
-
-
-Pueden llamarse desde la clase o la instancia indistintamente.
+Pueden llamarse desde la clase o la instancia indistintamente. Vemos un ejemplo a continuación:
 
 ```python
-class Clase:
+class Concursante:
+    premio_acumulado = 0
+  
     @classmethod
-    def metododeclase(cls):
-        return 'Método de clase', cls
+    def acumular_premio(cls, premio):
+        cls.premio_acumulado += premio
 
 
+concursante_1 = Concursante()
+concursante_2 = Concursante()
 
-Clase.metododeclase()
-# ('Método de clase', __main__.Clase)
-Pero también se pueden llamar sobre el objeto.
 
-mi_clase.metododeclase()
-# ('Método de clase', __main__.Clase)
+print(Concursante.premio_acumulado) #0
+
+Concursante.acumular_premio(50)
+print(Concursante.premio_acumulado) #50
+
+concursante_1.acumular_premio(100)
+print(Concursante.premio_acumulado) #150
+
+concursante_2.acumular_premio(100)
+print(Concursante.premio_acumulado) #250
 ```
 
 </br>
@@ -226,23 +305,23 @@ mi_clase.metododeclase()
 
 Los métodos estáticos se definen con el decorador `@staticmethod` y no tienen como parámetro ni la instancia ni la clase. Es por ello por lo que el uso de estos métodos previenen el poder modificarlas y son usados como métodos que aportan utilidades concretas.
 
-Los métodos estáticos se pueden ver como funciones normales con la particularidad de que van ligadas a una clase concreta.
+Los métodos estáticos se pueden ver como funciones normales con la particularidad de que van ligadas a una clase concreta. En el siguiente ejemplo se muestra su uso:
 
 </br>
 
 ```python
-class Clase:
+class Matemáticas:
     @staticmethod
-    def metodoestatico():
-        return "Método estático"
+    def sumar(a, b):
+        return a + b
         
-Clase.metodoestatico()
+    @staticmethod
+    def multiplicar(a, b):
+        return a * b
 
-mi_clase = Clase()
-mi_clase.metodoestatico()
 
-# 'Método estático'
-# 'Método estático'
+print(Matemáticas.sumar(5, 3)) #8
+print(Matemáticas.multiplicar(5, 3)) #15
 ```
 
 </br>
@@ -252,16 +331,24 @@ mi_clase.metodoestatico()
 
 Los métodos abstractos son aquellos que son declarados pero no tienen una implementación directa en la clase. Su finalidad es que las clases que hereden de esta estén obligadas a hacer su propia implementación de este método.
 
-Se definen con el decorador `@abstractmethod` y son frecuentemente usados crear interfaces que faciliten la comunicación entre diferentes clases. Vemos un ejemplo a continuación:
+Se definen con el decorador `@abstractmethod` (incluido en el módulo `abc` de python) y son frecuentemente usados para crear interfaces que faciliten la comunicación entre diferentes clases. Vemos un ejemplo a continuación:
 
 </br>
 
 ```python
-from abc import ABC, abstractmethod
-class Clase(metaclass=ABCMeta):
+from abc import abstractmethod
+
+class Herramienta:    
     @abstractmethod
-    def metodo_abstracto(self):
+    def describir_funcionamiento(self):
         pass
+      
+
+class Taladro(Herramienta):
+    def describir_funcionamiento():
+        print("Esta herramienta sirve para hacer agujeros.")
+        
+Taladro.describir_funcionamiento() #Esta herramienta sirve para hacer agujeros.
 ```
 </br>
 
@@ -277,13 +364,29 @@ Se puede crear una clase hija simplemente pasando como parámetro la clase padre
 </br>
 
 ```python
-# Definimos una clase padre
 class Animal:
-    pass
+    tamaño = "grande"
+    patas = 4
+    vuelo = False
+    
+    @classmethod
+    def describir(cls):
+        print(f'Este animal es {cls.tamaño}, tiene {cls.patas} patas y {"puede volar" if cls.vuelo else "no puede volar"}.')
+    
 
-# Creamos una clase hija que hereda de la padre
-class Perro(Animal):
-    pass
+class Gato(Animal):
+    tamaño = "mediano"
+    
+    
+class Pájaro(Animal):
+    tamaño = "pequeño"
+    patas = 2
+    vuelo = True
+    
+    
+Gato.describir() #Este animal es mediano, tiene 4 patas y no puede volar.
+
+Pájaro.describir() #Este animal es pequeño, tiene 2 patas y puede volar.
 ```
 
 </br>
@@ -310,79 +413,62 @@ Podemos ver en el siguiente ejemplo el uso de la herencia para definir múltiple
 </br>
 
 ```python
-class Animal:
-    def __init__(self, especie, edad):
-        self.especie = especie
-        self.edad = edad
+class Invento:
+    fecha = "Desconocida"
+    inventor = "Desconocido"
+    
+    def __init__(self, propietario, identificador):
+        self.propietario = propietario
+        self.identificador = identificador
 
-    # Método genérico pero con implementación particular
-    def hablar(self):
-        # Método vacío
+    def describir(self):
         pass
 
-    # Método genérico pero con implementación particular
-    def moverse(self):
-        # Método vacío
-        pass
-
-    # Método genérico con la misma implementación
-    def describeme(self):
-        print("Soy un Animal del tipo", type(self).__name__)
+    def mostrar_datos(self):
+        print("Nombre: " + type(self).__name__ + "  Fecha: " + str(self.fecha) + "  Inventor: " + self.inventor)
 
 
+class Teléfono(Invento):
+    fecha = 1876
+    inventor = "Alexander Graham Bell"
 
-# Perro hereda de Animal
-class Perro(Animal):
-    pass
-
-mi_perro = Perro('mamífero', 10)
-mi_perro.describeme()
-# Soy un Animal del tipo Perro
+    def describir(self):
+        print("El teléfono es un dispositivo de telecomunicación creado para transmitir señales acústicas a distancia por medio de señales eléctricas.")
 
 
+class Imprenta(Invento):
+    fecha = 1440
+    inventor = "Johannes Gutenberg"
+
+    def describir(self):
+        print("La imprenta es un método mecánico destinado a reproducir textos e imágenes sobre papel, vitela, tela u otro material.")
+
+    def dato_curioso(self):
+        print("La biblia de Gutenberg fue el primer libro impreso de la historia y se imprimió con un total de 42 líneas por cada página.")
 
 
-class Perro(Animal):
-    def hablar(self):
-        print("Guau!")
-    def moverse(self):
-        print("Caminando con 4 patas")
+class Telescopio(Invento):
+    fecha = 1608
+    inventor = "Hans Lippershey"
 
-class Vaca(Animal):
-    def hablar(self):
-        print("Muuu!")
-    def moverse(self):
-        print("Caminando con 4 patas")
-
-class Abeja(Animal):
-    def hablar(self):
-        print("Bzzzz!")
-    def moverse(self):
-        print("Volando")
-
-    # Nuevo método
-    def picar(self):
-        print("Picar!")
+    def describir(self):
+        print("El telescopio es un instrumento óptico que permite observar objetos lejanos con mucho más detalle que a simple vista")
 
 
+teléfono_963 = Teléfono("Museo Metropolitano", "ET-963")
+imprenta_120 = Imprenta("Biblioteca Antigua", "GG-120")
+telescopio_568 = Telescopio("Planetario Central", "FH-568")
 
 
-mi_perro = Perro('mamífero', 10)
-mi_vaca = Vaca('mamífero', 23)
-mi_abeja = Abeja('insecto', 1)
+teléfono_963.mostrar_datos() #Nombre: Teléfono  Fecha: 1876  Inventor: Alexander Graham Bell
+teléfono_963.describir() #El teléfono es un dispositivo de telecomunicación creado para transmitir señales acústicas a distancia por medio de señales eléctricas.
 
-mi_perro.hablar()
-mi_vaca.hablar()
-# Guau!
-# Muuu!
+imprenta_120.mostrar_datos() #Nombre: Imprenta  Fecha: 1440  Inventor: Johannes Gutenberg
+imprenta_120.describir() #La imprenta es un método mecánico destinado a reproducir textos e imágenes sobre papel, vitela, tela u otro material.
+imprenta_120.dato_curioso() #La biblia de Gutenberg fue el primer libro impreso de la historia y se imprimió con un total de 42 líneas por cada página.
 
-mi_vaca.describeme()
-mi_abeja.describeme()
-# Soy un Animal del tipo Vaca
-# Soy un Animal del tipo Abeja
-
-mi_abeja.picar()
-# Picar!
+telescopio_568.mostrar_datos() #Nombre: Telescopio  Fecha: 1608  Inventor: Hans Lippershey
+telescopio_568.describir() #El telescopio es un instrumento óptico que permite observar objetos lejanos con mucho más detalle que a simple vista
 ```
 
 </br>
@@ -390,51 +476,34 @@ mi_abeja.picar()
 
 Los métodos de la clases heredadas pueden clasificarse en tres tipos diferentes:
 
-- Heredados directamente de la clase padre: describeme()
-- Heredados de la clase padre pero modificados: hablar() y moverse()
-- Creados en la clase hija por lo tanto no existentes en la clase padre: picar()
+- Heredados directamente de la clase padre: mostrar_datos()
+- Heredados de la clase padre pero modificados: describir()
+- Creados en la clase hija por lo tanto no existentes en la clase padre: dato_curioso()
 
 </br></br>
 
 
-Por último cabe mencionar que podemos hacer uso de de la función `super()` desde la clase hija para acceder a los métodos de la clase padre.
-
-Podemos ver su uso en el siguiente ejemplo: 
+Por último cabe mencionar que podemos hacer uso de de la función `super()` desde la clase hija para acceder a los métodos de la clase padre y poder ampliar el constructor. Vemos un ejemplo de ello a continuación:
 
 </br>
 
 ```python
-class Animal:
-    def __init__(self, especie, edad):
-        self.especie = especie
-        self.edad = edad        
-    def hablar(self):
-        pass
+class Construcción:
+    def __init__(self, altura):
+        self.altura = altura
+        print(f'Se trata de una construcción {self.altura}.')
 
-    def moverse(self):
-        pass
-
-    def describeme(self):
-        print("Soy un Animal del tipo", type(self).__name__)
-```
-
-</br>
-
-
-También podemos usar `super()` para ampliar el constructor de la clase padre. Vemos un ejemplo de ello a continuación:
-
-</br>
-
-```python
-class Perro(Animal):
-    def __init__(self, especie, edad, dueño):
-        super().__init__(especie, edad)
-        self.dueño = dueño
         
-mi_perro = Perro('mamífero', 7, 'Luis')
-mi_perro.especie
-mi_perro.edad
-mi_perro.dueño
+class Casa(Construcción):
+    def __init__(self, altura, material):
+        super().__init__(altura)
+        self.material = material
+        print(f'En concreto una casa de {self.material}.')
+ 
+          
+mi_casa = Casa("alta", "piedra")
+#Se trata de una construcción alta.
+#En concreto una casa de piedra.
 ```
 
 </br>
@@ -447,7 +516,7 @@ El término polimorfismo tiene origen en las palabras griegas *polys* (muchos) y
 Según el principio de polimorfismo podemos llamar a la misma función en diferentes objetos que no pertenecen a la misma clase.
 La respuesta a esa llamada debe estar garantizada y ser diferente y específica para cada objeto. Los comportamientos obtenidos deben así ser distintos y "tomar diferentes formas".
 
-Esta característica permite que sin alterar el código existente de un programa se puedan incorporar nuevos comportamientos y funciones aportando así flexibilidad en el diseño del software. Para hacerlo simplemente deben agregarse nuevas clases cuyo único requisito es que deben tener implementados todos los métodos necesarios usados por el programa.
+Esta característica permite que sin alterar el código existente de un programa se puedan incorporar nuevos comportamientos y funciones aportando así flexibilidad en el diseño del software. Para hacerlo simplemente se agregan nuevas clases cuyo único requisito es que deben tener implementados todos los métodos necesarios usados por el programa.
 
 Una manera fácil de asegurarse de ello es que las diferentes clases hereden de la misma clase padre y que esta tenga métodos abstractos definidos en ella. Esto garantiza que todas las clases hija definan esos métodos y por tanto puedan comunicarse con el mismo interfaz.
 
@@ -459,27 +528,39 @@ Vemos un ejemplo de todo ello a continuación:
 </br>
 
 ```python
-class Animal:
-    def hablar(self):
+from abc import abstractmethod
+
+class Forma:   
+    @abstractmethod
+    def calcular_perímetro():
         pass
+      
+    @abstractmethod
+    def calcular_área():
+        pass
+      
+
+class Cuadrado(Forma):
+    def calcular_perímetro():
+        print("Se suman los cuatro lados")
+
+    def calcular_área():
+        print("Se multiplica la base por la altura")
+        
+        
+class Triángulo(Forma):
+    def calcular_perímetro():
+        print("Se suman los tres lados")
+
+    def calcular_área():
+        print("Se multiplica la base por la altura y se divide entre dos")
 
 
+Cuadrado.calcular_perímetro() #Se suman los cuatro lados
+Cuadrado.calcular_área() #Se multiplica la base por la altura
 
-class Perro(Animal):
-    def hablar(self):
-        print("Guau!")
-
-class Gato(Animal):
-    def hablar(self):
-        print("Miau!")
-
-
-
-for animal in Perro(), Gato():
-    animal.hablar()
-
-# Guau!
-# Miau!
+Triángulo.calcular_perímetro() #Se suman los tres lados
+Triángulo.calcular_área() #Se multiplica la base por la altura y se divide entre dos
 ```
 
 
@@ -496,28 +577,55 @@ Una llamada a la API, o solicitud API, permite a una aplicación solicitar datos
 
 
 
-Para ser útil, una API tiene que tener documentación. La documentación indica, entre otras cosas, qué tipos de solicitudes acepta la API, qué puede hacer la API, cómo formatea sus respuestas y cuáles son sus puntos finales. Los desarrolladores pueden revisar la documentación de una API e incorporar esta información cuando desarrollan sus aplicaciones.
+Una API define las reglas que se deben seguir para comunicarse con otros sistemas de software. Los desarrolladores exponen o crean API para que otras aplicaciones puedan comunicarse con sus aplicaciones mediante programación.
+
+
+Se puede pensar en una API web como una puerta de enlace entre los clientes y los recursos de la Web.
+
+
+Clientes
+
+Los clientes son usuarios que desean acceder a información desde la Web. El cliente puede ser una persona o un sistema de software que utiliza la API.
+
+Recursos
+
+Los recursos son la información que diferentes aplicaciones proporcionan a sus clientes. Los recursos pueden ser imágenes, videos, texto, números o cualquier tipo de datos. (servidor)
+
+
+Para ser útil, una API tiene que tener documentación. La documentación indica, entre otras cosas, qué tipos de solicitudes acepta la API, qué puede hacer la API, cómo formatea sus respuestas y cuáles son sus puntos finales.
 
 
 
 - **Request** - es la solicitud envidada por el cliente
 - **Response** - es la respuesta dada por el servidor
 
-Request y body y resource
 
-carga útil de la petición
+
+La transferencia de estado representacional (REST) es una arquitectura de software que impone condiciones sobre cómo debe funcionar una API. En un principio, REST se creó como una guía para administrar la comunicación en una red compleja como Internet.
+
+Los desarrolladores de API pueden diseñar API por medio de varias arquitecturas diferentes. Las API que siguen el estilo arquitectónico de REST se llaman API RESTful.
+
+
+
+
+En el estilo arquitectónico REST se lleva a cabo la separación entre cliente y servidor. La implementación de ambas partes se puede realizar de forma independiente sin que cada uno conozca al otro. Esto significa que el código del lado del cliente se puede cambiar en cualquier momento sin afectar el funcionamiento del servidor, y el código del lado del servidor se puede cambiar sin afectar el funcionamiento del cliente. La única condición es que cada parte mantenga el formato de mensaje que debe enviar a la otra.
+
+
+Un *endpoint* o punto final es el lugar donde se realizan las solicitudes a la API.
+(conocidas como llamadas API).
+
+la URL de un punto final de la API es como un número de teléfono para hacer llamadas API.
+
+Un servidor de API puede alojar uno o varios puntos finales de la API, lo que significa que aceptará y procesará las llamadas dirigidas a las URL de esos puntos finales. Los clientes de la API también necesitan tener una URL para que el servidor de la API sepa dónde enviar sus respuestas, del mismo modo que Bob y Alice necesitan un número de teléfono para llamarse. Los desarrolladores establecen esta URL cuando desarrollan sus aplicaciones.
+
+Una URL siempre incluye el protocolo de la capa de aplicación, como HTTP, utilizado para llegar a ella. La mayoría de las API web utilizan HTTP, por lo que se incluye en la URL del punto final de la API.
+
+
+
 
 Permisos y autentificación
 
-
-
-
-
-
-
-
-
-
+Una API no acepta llamadas de cualquier cliente. Por estas razones, el servidor de la API tiene que asegurarse de que el cliente del que procede la llamada es conocido y de confianza. La verificación de la identidad se hace mediante la autenticación.
 
 
 
@@ -661,7 +769,7 @@ Podemos ver una lista completa de métodos HTTP en el siguiente [enlace](https:/
 
 ### SISTEMA REST
 
-Los verbos Http involucrados en un sistema REST son GET, POST, PUT, PATCH y DELETE
+Los verbos Http involucrados en un sistema REST son GET, POST, PUT, PATCH y DELETE.
 
 
 En la arquitectura REST, los clientes envían solicitudes para recuperar o modificar recursos y los servidores envían respuestas a estas solicitudes. Echemos un vistazo a las formas estándar de realizar solicitudes y enviar respuestas.
@@ -680,16 +788,223 @@ El término *CRUD* se refiere a las iniciales de las cuatro operaciones básicas
 - [**U**]PDATE - actualizar
 - [**D**]ELETE - borrar
 
+Crear, Leer, Actualizar y Eliminar (CRUD) son las cuatro funciones básicas que los modelos deberían poder realizar, como máximo.
+Crear, leer, actualizar, eliminar
+Cuando creamos API, queremos que nuestros modelos proporcionen cuatro tipos básicos de funcionalidad. El modelo debe poder crear, leer, actualizar y eliminar recursos. Los informáticos suelen referirse a estas funciones con el acrónimo CRUD. Un modelo debe tener la capacidad de realizar como máximo estas cuatro funciones para ser completo. Si una acción no puede describirse mediante una de estas cuatro operaciones, entonces debería ser potencialmente un modelo en sí misma.
+
+
+
 
 Haciendo peticiones
+
 REST requiere que un cliente realice una solicitud al servidor para recuperar o modificar datos en el servidor. Una solicitud generalmente consta de:
 
 - **HTTP verb**un verbo HTTP, que define qué tipo de operación realizar
 - **header** un encabezado, que permite al cliente transmitir información sobre la solicitud
-- **path** un camino hacia un recurso
+- **path** una ruta hacia un recurso
 - **body** un cuerpo de mensaje opcional que contiene datos
 
 
+
+¿Qué contiene la solicitud del cliente de la API RESTful?
+
+Las API RESTful requieren que las solicitudes contengan los siguientes componentes principales:
+
+Identificador único de recursos
+
+El servidor identifica cada recurso con identificadores únicos de recursos. En los servicios REST, el servidor por lo general identifica los recursos mediante el uso de un localizador uniforme de recursos (URL). El URL especifica la ruta hacia el recurso. Un URL es similar a la dirección de un sitio web que se ingresa al navegador para visitar cualquier página web. El URL también se denomina punto de conexión de la solicitud y especifica con claridad al servidor qué requiere el cliente.
+
+Método
+
+Los desarrolladores a menudo implementan API RESTful mediante el uso del protocolo de transferencia de hipertexto (HTTP). Un método de HTTP informa al servidor lo que debe hacer con el recurso. A continuación, se indican cuatro métodos de HTTP comunes:
+
+GET
+
+Los clientes utilizan GET para acceder a los recursos que están ubicados en el URL especificado en el servidor. Pueden almacenar en caché las solicitudes GET y enviar parámetros en la solicitud de la API RESTful para indicar al servidor que filtre los datos antes de enviarlos.
+
+POST
+
+Los clientes usan POST para enviar datos al servidor. Incluyen la representación de los datos con la solicitud. Enviar la misma solicitud POST varias veces produce el efecto secundario de crear el mismo recurso varias veces.
+
+PUT
+
+Los clientes utilizan PUT para actualizar los recursos existentes en el servidor. A diferencia de POST, el envío de la misma solicitud PUT varias veces en un servicio web RESTful da el mismo resultado.
+
+DELETE
+
+Los clientes utilizan la solicitud DELETE para eliminar el recurso. Una solicitud DELETE puede cambiar el estado del servidor. Sin embargo, si el usuario no cuenta con la autenticación adecuada, la solicitud fallará.
+
+Encabezados de HTTP
+
+Los encabezados de solicitudes son los metadatos que se intercambian entre el cliente y el servidor. Por ejemplo, el encabezado de la solicitud indica el formato de la solicitud y la respuesta, proporciona información sobre el estado de la solicitud, etc.
+
+Datos
+
+Las solicitudes de la API REST pueden incluir datos para que los métodos POST, PUT y otros métodos HTTP funcionen de manera correcta.
+
+Parámetros
+
+Las solicitudes de la API RESTful pueden incluir parámetros que brindan al servidor más detalles sobre lo que se debe hacer. A continuación, se indican algunos tipos de parámetros diferentes:
+
+Los parámetros de ruta especifican los detalles del URL.
+Los parámetros de consulta solicitan más información acerca del recurso.
+Los parámetros de cookie autentican a los clientes con rapidez.
+
+
+
+¿Qué contiene la respuesta del servidor de la API RESTful?
+
+Los principios de REST requieren que la respuesta del servidor contenga los siguientes componentes principales:
+
+Línea de estado
+
+La línea de estado contiene un código de estado de tres dígitos que comunica si la solicitud se procesó de manera correcta o dio error. Por ejemplo, los códigos 2XX indican el procesamiento correcto, pero los códigos 4XX y 5XX indican errores. Los códigos 3XX indican la redirección de URL.
+
+A continuación, se enumeran algunos códigos de estado comunes:
+
+200: respuesta genérica de procesamiento correcto
+201: respuesta de procesamiento correcto del método POST
+400: respuesta incorrecta que el servidor no puede procesar
+404: recurso no encontrado
+Cuerpo del mensaje
+
+El cuerpo de la respuesta contiene la representación del recurso. El servidor selecciona un formato de representación adecuado en función de lo que contienen los encabezados de la solicitud. Los clientes pueden solicitar información en los formatos XML o JSON, lo que define cómo se escriben los datos en texto sin formato. Por ejemplo, si el cliente solicita el nombre y la edad de una persona llamada John, el servidor devuelve una representación JSON como la siguiente:
+
+'{"name":"John", "age":30}'
+
+Encabezados
+
+La respuesta también contiene encabezados o metadatos acerca de la respuesta. Estos brindan más contexto sobre la respuesta e incluyen información como el servidor, la codificación, la fecha y el tipo de contenido.
+
+
+
+CRUD and REST
+In a REST environment, CRUD often corresponds to the HTTP methods POST, GET, PUT, and DELETE, respectively. These are the fundamental elements of a persistent storage system.
+
+Throughout the rest of the article, we will recommend standards and response codes that are typically followed by developers when creating RESTful applications. Conventions may differ so feel free to experiment with different return values and codes as you become comfortable with the CRUD paradigm.
+
+Imagine we are working with a system that is keeping track of meals and their corresponding prices for a restaurant. Let’s look at how we would implement CRUD operations.
+
+CREATE
+
+Request:
+
+POST http://www.myrestaurant.com/dishes/
+
+Body -
+
+{
+  "dish": {
+    "name": “Avocado Toast”,
+    "price": 8
+  }
+}
+
+Response:
+
+Status Code - 201 (CREATED)
+
+Body -
+
+{
+  "dish": {
+    "id": 1223,
+    "name": “Avocado Toast”,
+    "price": 8
+  }
+}
+
+
+READ
+
+Request:
+
+GET http://www.myrestaurant.com/dishes/
+
+Response: Status Code - 200 (OK)
+
+Body -
+
+{
+  "dishes": [
+    {
+      "id": 1,
+      "name": “Spring Rolls”,
+      "price": 6
+    },
+    {
+      "id": 2,
+      "name": “Mozzarella Sticks”,
+      "price": 7
+    },
+    ...
+    {
+      "id": 1223,
+      "name": “Avocado Toast”,
+      "price": 8
+    },
+    {
+      "id": 1224,
+      "name": “Muesli and Yogurt”,
+      "price": 5
+    }
+  ]
+}
+
+read a specific item
+
+Request:
+
+GET http://www.myrestaurant.com/dishes/1223
+
+Response: Status Code - 200 (OK)
+
+Body -
+
+{
+  "id": 1223,
+  "name": “Avocado Toast”,
+  "price": 8
+}
+
+
+UPDATE
+
+Request:
+
+PUT http://www.myrestaurant.com/dishes/1223
+Body -
+
+{
+  "dish": {
+    "name": “Avocado Toast”,
+    "price": 10
+  }
+}
+
+
+Response: Status Code - 200 (OK)
+
+Body -
+
+{
+  "dish": {
+    "name": “Avocado Toast”,
+    "price": 10
+  }
+}
+
+
+DELETE
+
+Request:
+
+DELETE http://www.myrestaurant.com/dishes/1223
+
+
+Response: Status Code - 204 (NO CONTENT)
+
+Body - None
 
 </br>
 
@@ -793,21 +1108,30 @@ Podemos ver una descripción más detallada de todos ellos en el siguiente [enla
 
 ### POSTMAN
 
-Postman es uno de los programas más populares para trabajar en el desarrollo de APIs. Es gratuito y lo puedes usar sin límites, aunque también tiene su versión premium con características extra. Básicamente permite configurar rutas de endpoints del API y ejecutarlas, para ejercitar el backend de las aplicaciones.
+Básicamente permite configurar rutas de endpoints del API y ejecutarlas, para ejercitar el backend de las aplicaciones.
 
 Gracias a Postman podemos guardar todas las request que queramos, para tenerlas preparadas y poder ejecutarlas las veces que haga falta. Esto nos facilita mucho el día a día en el desarrollo, pues generalmente tendremos que probar una ruta diversas veces hasta que comprobemos que todo funciona como se esperaba.
 
-Además, Postman permite trabajar cómodamente con todos los métodos del HTTP, como GET, POST, PUT, PATCH, DELETE. Si no tuviéramos algo como Postman necesitaríamos generar código del cliente, con Javascript y generalmente Ajax para poder realizar los request al servidor y probar todos esos métodos, ya que un navegador cuando accedemos a un recurso mediante su URL solo nos permite hacer un simple GET.
+A través del cliente API, puede organizar solicitudes en Colecciones Postman para ayudarlo a organizar sus solicitudes para su reutilización, de modo que no pierda tiempo creando todo desde cero. Sus colecciones también pueden contener código JavaScript para vincular solicitudes o automatizar flujos de trabajo comunes, y puede usar secuencias de comandos para visualizar sus respuestas API como cuadros y gráficos.
 
 
 
 
+Además, Postman permite trabajar cómodamente con todos los métodos del HTTP, como GET, POST, PUT, PATCH, DELETE.
 
-Postman es un software de uso gratuito popularmente usado para el desarrollo de APIs. Su principal función es permitirnos comunicarnos directamente con una API y emular las solicitudes que posteriormente harán loa aplicaciones web que se comuniquen con ella.
+Postman es un software de uso gratuito popularmente usado para el desarrollo de APIs. Su principal función es permitirnos comunicarnos directamente con una API y emular las solicitudes que posteriormente harán las aplicaciones web que se comuniquen con ella.
 
-Podemos realizar cualquiera de las acciones HTTP y recibir la respuesta dada por la API para poder analizarla. El uso de herramientas como postman es de vital importancia para comprobar el funcionamiento de una API durante su desarrollo. Su principal ventaja es que nos ahorra tener que desarrollar una aplicación web
+Podemos realizar cualquier solicitud y recibir la respuesta dada por la API para poder analizarla.
+
+El uso de herramientas como postman es de vital importancia para comprobar el funcionamiento de una API durante su desarrollo. Su principal ventaja es poder emular las solicitudes realizadas a la API y nos ahorra así tener que desarrollar una aplicación web real.
 
 Podemos usar la interfaz gráfica del programa para poder realizar las diferentes solicitudes
+
+
+Postman también nos ayuda a generar automáticamente documentación para nuestra API. Esto permite que futuros usuarios tengan una guía de referencia para utilizarla.
+
+and format text inside the body to make inspection easy
+
 
 
 [postman.com](https://www.postman.com/)
@@ -816,7 +1140,6 @@ Podemos usar la interfaz gráfica del programa para poder realizar las diferente
 
 Permite automatizar las peticiones
 
-> Postman es una popular herramienta utilizada para probar APIs, permitiendo a los desarrolladores enviar peticiones a servicios web y ver respuestas. Exploraremos cómo Postman puede ser una herramienta esencial para probar APIs eficientemente.
 
 > endpoints
 
