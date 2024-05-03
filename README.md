@@ -105,7 +105,7 @@ del alerta_2
 
 ### CONSTRUCTOR
 
-Cuando una instancia de una clase es creada se ejecuta automáticamente el método `__init__()`. Este método es el constructor de la clase y se encarga de recibir los argumentos y asignarlos a la instancia. De esta forma podemos asignar de forma sencilla y breve información a cada una de las instacias creadas.
+Cuando una instancia de una clase es creada se ejecuta automáticamente el método `__init__()`. Este método es el constructor de la clase y se encarga de recibir los argumentos y asignarlos a la instancia. De esta forma podemos asignar de forma sencilla y breve información a cada una de las instancias creadas.
 
 El constructor debe estar definido dentro de la clase y hacer uso del parámetro `self` para hacer referencia a la instancia creada.
 
@@ -139,9 +139,13 @@ Hay dos tipos de atributos dentro de una clase:
 
 - Atributos de clase
 - Atributos de instancia
+
 </br>
 
+
 Los atributos de clase son comunes a todas las instancias y se definen directamente dentro de la clase. El valor de un atributo de clase es único y compartido por todas las instancias y la propia clase. Si alguno de los objetos asociados a ella cambia su valor lo hace también para el resto. Podemos ver un ejemplo de ello a continuación:
+
+</br>
 
 ```python
 class Concursante:
@@ -169,7 +173,10 @@ print (concursante_3.premio_acumulado) #700
 ```
 </br>
 
+
 Los atributos de instancia son propios de cada instancia y se definen dentro del método `__init__()`. Cada instancia tiene un valor propio para cada atributo.  Si una instancia cambia el valor de su atributo no afecta al resto de las instancias. Además la clase en sí no tiene definidos estos atributos y por tanto no tiene acceso a ellos. Podemos ver la definición y uso de atributos de instancia en el siguiente ejemplo:
+
+</br>
 
 ```python
 class Cuenta:
@@ -195,9 +202,13 @@ Para ello se definen dos métodos:
 
 - el método *getter*: se encarga de la lectura del atributo
 - el método *setter*: se encarga de la escritura del atributo
+
 </br>
 
+
 Podemos ver un ejemplo del uso de propiedades a continuación:
+
+</br>
 
 ```python
 class Casa:
@@ -227,6 +238,7 @@ print(mansión.precio)
 ```
 </br>
 
+
 Nótese que aunque por su sintaxis un atributo puede parecer un método no se usa el símbolo `()` cuando se hace referencia a él. 
 </br>
 
@@ -248,7 +260,6 @@ Existen principalmente cuatro tipos diferentes de métodos y son los siguientes:
 
 
 #### MÉTODOS DE INSTANCIA
-
 
 Los métodos de instancia son los métodos definidos normalmente dentro de la clase. Aparte de `self` pueden definir otros parámetros tal y como vemos en el siguiente ejemplo:
 
@@ -275,6 +286,8 @@ mi_trapo.limpiar("silla") #Limpiando silla
 Los métodos de clase se definen con el decorador `@classmethod` y usan el parámetro `cls` en lugar de `self`. Este parámetro hace referencia a la clase del objeto y no a la instancia. Es por ello que solo pueden acceder y modificar a la clase y en ningún caso pueden hacerlo a la propia instancia.
 
 Pueden llamarse desde la clase o la instancia indistintamente. Vemos un ejemplo a continuación:
+
+</br>
 
 ```python
 class Concursante:
@@ -395,7 +408,7 @@ Pájaro.describir() #Este animal es pequeño, tiene 2 patas y puede volar.
 </br>
 
 
-El proceso de la herencia de clases resulta muy ventajoso porque nos permite ahorrar la repetición de código y nos ayuda a tener bien organizadas todas nuestras clases. Facilita el mantenimiento del programa y la implementación de nuevas funcionalidades.
+El proceso de la herencia de clases resulta muy ventajoso porque nos permite ahorrarnos la repetición de código y nos ayuda a tener bien organizadas todas nuestras clases. Facilita el mantenimiento del programa y la implementación de nuevas funcionalidades.
 
 Sin embargo, esto requiere un esfuerzo previo para saber cómo vamos a planificar la herencia entre las diferentes clases. Se debe hacer en función de qué clases se parecen más y por tanto comparten un mayor número de métodos y atributos.
 
@@ -565,7 +578,6 @@ Cuadrado.calcular_área() #Se multiplica la base por la altura
 Triángulo.calcular_perímetro() #Se suman los tres lados
 Triángulo.calcular_área() #Se multiplica la base por la altura y se divide entre dos
 ```
-
 
 </br></br></br></br></br>
 
@@ -1594,54 +1606,6 @@ sumar(3, 6, 7)
 #Total = 16
 #Total = 16
 #Total = 16
-```
-
-</br>
-
-
-### DECORADORES PREDEFINIDOS DE PYTHON
-
-Algunos decoradores pueden usarse directamente ya que corresponden a funciones ya predefinidas en el código de python. A continuación se muestran algunos ejemplos:
-
-Decorador | Descripción
---------- | -----------
-@classmethod    | Define un método de clase
-@staticmethod   | Define un método estático
-@abstractmethod | Define un método abstracto
-@property       | Define el *getter* y el *setter* de una propiedad
-
-</br>
-
-
-Vemos el uso del decorador `@property` en el siguiente ejemplo:
-
-</br>
-
-```python
-class Casa:
-    def __init__(self, precio):
-        self.__precio = precio
-
-    @property
-    def precio(self):
-        return self.__precio
-
-    @precio.setter
-    def precio(self, nuevo_valor):
-        if nuevo_valor != "":
-            print(f'Modificando el precio a {nuevo_valor}')
-            self.__precio = nuevo_valor
-        else:
-            print("Error. Se debe pasar un valor")
-            
-
-mansión = Casa("1.200.000€")
-
-mansión.precio = "900.000€"
-#Modificando el precio a 900.000€
-
-print(mansión.precio)
-#900.000€
 ```
 
 </br>
