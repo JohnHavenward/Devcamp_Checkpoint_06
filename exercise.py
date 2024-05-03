@@ -6,3 +6,5 @@ class Usuario:
     self.contraseña = contraseña
 
 mi_usuario = Usuario("John", "manzana")
+
+print(f'Usuario: {mi_usuario.nombre_usuario}\nContraseña: {mi_usuario.contraseña}')
