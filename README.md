@@ -11,7 +11,60 @@
 [¿Qué es el polimorfismo?](#polimorfismo)</br>
 [¿Qué es un método dunder?](#métodos-dunder)</br>
 [¿Qué es un decorador de python?](#decoradores)</br>
+
+</br></br>
+
+# ÍNIDICE
+
+
+### CLASES ([ enlace ](#clases))
+
+- INSTANCIAS
+- CONSTRUCTOR
+- ATRIBUTOS
+- MÉTODOS
+- HERENCIA
+- POLIMORFISMO
+
 </br>
+
+
+### API ([ enlace ](#api))
+
+- ARQUITECTURA DE UNA APLICACIÓN WEB
+- MÉTODOS HTTP
+- ARCHIVOS JSON
+- SISTEMAS REST
+- SISTEMA CRUD
+- CÓDIGOS DE ESTADO DE RESPUESTA HTTP
+- POSTMAN
+
+</br>
+
+
+### MONGODB ([ enlace ](#mongodb))
+- ESTRUCTURA DE MONGODB
+- CARACTERÍSTICAS DE MONGODB
+- BASES DE DATOS RELACIONALES
+
+</br>
+
+
+### MÉTODOS DUNDER ([ enlace ](#métodos-dunder))
+- EJEMPLO PRÁCTICO
+- MÉTODOS DUNDER COMUNES
+
+</br>
+
+
+### DECORADORES ([ enlace ](#decoradores))
+- SINTAXIS
+- DECORADORES CON PARÁMETROS
+- USOS COMUNES
+
+</br></br></br></br></br>
+
+
 
 
 
