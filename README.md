@@ -247,7 +247,7 @@ print (cuenta_2.titular + " : " + str(cuenta_2.fondos) + "$") #Antonio : 2700$
 </br>
 
 
-#### PROPIEDADES
+##### PROPIEDADES
 
 Las propiedades son un tipo especial de atributo de instancia que se definen con el decorador `@property`. La principal diferencia de una propiedad es que permiten un acceso controlado a ella en los procesos de lectura y escritura  de esta. Esto permite hacer comprobaciones e incluso realizar algún cálculo de forma automática cuando se acceda a su valor.
 
@@ -312,7 +312,7 @@ Existen principalmente cuatro tipos diferentes de métodos y son los siguientes:
 </br>
 
 
-#### MÉTODOS DE INSTANCIA
+##### MÉTODOS DE INSTANCIA
 
 Los métodos de instancia son los métodos definidos normalmente dentro de la clase. Aparte de `self` pueden definir otros parámetros tal y como vemos en el siguiente ejemplo:
 
@@ -334,7 +334,7 @@ mi_trapo.limpiar("silla") #Limpiando silla
 </br>
 
 
-#### MÉTODOS DE CLASE
+##### MÉTODOS DE CLASE
 
 Los métodos de clase se definen con el decorador `@classmethod` y usan el parámetro `cls` en lugar de `self`. Este parámetro hace referencia a la clase del objeto y no a la instancia. Es por ello que solo pueden acceder y modificar a la clase y en ningún caso pueden hacerlo a la propia instancia.
 
@@ -370,7 +370,7 @@ print(Concursante.premio_acumulado) #250
 </br>
 
 
-#### MÉTODOS ESTÁTICOS
+##### MÉTODOS ESTÁTICOS
 
 Los métodos estáticos se definen con el decorador `@staticmethod` y no tienen como parámetro ni la instancia ni la clase. Es por ello por lo que el uso de estos métodos previenen el poder modificarlas y son usados como métodos que aportan utilidades concretas.
 
@@ -396,7 +396,7 @@ print(Matemáticas.multiplicar(5, 3)) #15
 </br>
 
 
-#### MÉTODOS ABSTRACTOS
+##### MÉTODOS ABSTRACTOS
 
 Los métodos abstractos son aquellos que son declarados pero no tienen una implementación directa en la clase. Su finalidad es que las clases que hereden de esta estén obligadas a hacer su propia implementación de este método.
 
@@ -846,7 +846,7 @@ Una respuesta generalmente consta de:
 
 A continuación vemos ejemplos para las diferentes acciones en un sistema CRUD:
 
-#### CREATE
+##### CREATE
 
 ```
 Request:
@@ -881,7 +881,7 @@ Body -
 </br>
 
 
-#### READ
+##### READ
 
 ```
 Request:
@@ -949,7 +949,7 @@ Body -
 </br>
 
 
-#### UPDATE
+##### UPDATE
 
 ```
 Request:
@@ -982,7 +982,7 @@ Body -
 </br>
 
 
-#### DELETE
+##### DELETE
 
 ```
 Request:
@@ -1288,7 +1288,7 @@ En este ejemplo vamos a crear la clase `Rectángulo` y vamos a incorporar paso a
 </br>
 
 
-#### PASO 1 - Definir la clase `Rectángulo`
+##### PASO 1 - Definir la clase `Rectángulo`
 
 Definimos la clase `Rectángulo`. Nótese que la palabra clave `pass` simplemente se usa para evitar un error de ejecución por estar esta vacía.
 
@@ -1302,7 +1302,7 @@ class Rectángulo:
 </br><br>
 
 
-#### PASO 2 - Método `__init__`
+##### PASO 2 - Método `__init__`
 
 Definimos el método `__init__` junto con los parámetros `self`, `altura`y `anchura`. Se trata del constructor de la clase y su función es tomar los argumentos y asignarlos a los atributos de la instancia creada.
 
@@ -1318,7 +1318,7 @@ class Rectángulo:
 <br></br>
 
 
-#### PASO 3 - Método `__len__`
+##### PASO 3 - Método `__len__`
 
 La función `len()` se usa normalmente en python para obtener el tamaño de una colección y saber cuantos elementos tiene. Imaginemos que nosotros queremos implementar esa función en nuestra clase y que calcule el valor de la superficie. Podemos hacerlo mediante la definición del método `__len__` en nuestra clase devolviendo el producto de los atributos `altura` y `anchura`. Hay que tener en cuenta que la función `len()` de python solo puede devolver una variable de tipo `int` por lo que para evitar posibles errores debemos usar la función `round()` para redondear el cálculo de la superficie.
 
@@ -1337,7 +1337,7 @@ class Rectángulo:
 <br></br>
 
 
-#### PASO 4 - Método `__str__`
+##### PASO 4 - Método `__str__`
 
 Por defecto cuando usamos `print()` para mostrar en la terminal la instancia de una clase lo que se muestra es su dirección en memoria y la clase a la que pertenece. En nuestro caso nos interesa más una cadena que nos informe sobre las dimensiones y superficie del rectángulo. Podemos implementar el método `__str__` en nuestra clase para definir la cadena mostrada.
 
@@ -1359,7 +1359,7 @@ class Rectángulo:
 </br></br>
 
 
-#### PASO 5 - Métodos `__eq__` , `__lt__`, `__le__`, `__gt__` y `__ge__`
+##### PASO 5 - Métodos `__eq__` , `__lt__`, `__le__`, `__gt__` y `__ge__`
 
 A continuación podemos habilitar las comparaciones entre instancias de nuestra clase que por defecto no están disponibles. Para ello debemos especificar la forma en que python debe evaluar esas comparaciones implementando cada una de las funciones *dunder* respectivas. En nuestro caso evaluamos la superficie de los dos rectángulos comparados empleando los parámetros `self` y `other` que hacen referencia a cada uno.
 
