@@ -571,66 +571,26 @@ Triángulo.calcular_área() #Se multiplica la base por la altura y se divide ent
 
 # API
 
-Las siglas API provienen de *Application Programming Interface* y su principal función es servir de intermediario entre dos sistemas. Una API permite que una aplicación se comunique con otra y pida datos o acciones específicas.
-
-Una llamada a la API, o solicitud API, permite a una aplicación solicitar datos o servicios de otra aplicación. La mayoría de las aplicaciones web realizan regularmente llamadas a la API.
-
-
-
-Una API define las reglas que se deben seguir para comunicarse con otros sistemas de software. Los desarrolladores exponen o crean API para que otras aplicaciones puedan comunicarse con sus aplicaciones mediante programación.
-
-
-Se puede pensar en una API web como una puerta de enlace entre los clientes y los recursos de la Web.
-
-
-Clientes
-
-Los clientes son usuarios que desean acceder a información desde la Web. El cliente puede ser una persona o un sistema de software que utiliza la API.
-
-Recursos
-
-Los recursos son la información que diferentes aplicaciones proporcionan a sus clientes. Los recursos pueden ser imágenes, videos, texto, números o cualquier tipo de datos. (servidor)
-
-
-Para ser útil, una API tiene que tener documentación. La documentación indica, entre otras cosas, qué tipos de solicitudes acepta la API, qué puede hacer la API, cómo formatea sus respuestas y cuáles son sus puntos finales.
-
-
+Las siglas API provienen de *Application Programming Interface* y su principal función es servir de intermediario entre dos sistemas. Una API permite que una aplicación se comunique con otra y pida datos o acciones específicas. Para ello debe gestionar los mensajes mandados entre las dos partes y se conocen como:
 
 - **Request** - es la solicitud envidada por el cliente
 - **Response** - es la respuesta dada por el servidor
 
+</br>
 
 
-La transferencia de estado representacional (REST) es una arquitectura de software que impone condiciones sobre cómo debe funcionar una API. En un principio, REST se creó como una guía para administrar la comunicación en una red compleja como Internet.
+Se puede pensar en una API web como una puerta de enlace entre los clientes y los recursos de una web. Los clientes son los usuarios o sistemas de software que desean acceder a la información y los recursos son la información que la web proporciona y pueden ser imágenes, videos, texto, números o cualquier otro tipo de datos.
 
-Los desarrolladores de API pueden diseñar API por medio de varias arquitecturas diferentes. Las API que siguen el estilo arquitectónico de REST se llaman API RESTful.
+Una API define las reglas que se deben seguir para realizar correctamente la comunicación entre ambas partes. Un *endpoint* o punto final es el lugar donde se realizan las solicitudes a la API, también conocidas como llamadas a la API. Una solicitud a la API permite a una aplicación solicitar datos o servicios del servidor.
 
+La URL de un *endpoint* de la API es como un número de teléfono para hacer la llamada a la API y debe ser conocida por el cliente. Los clientes de la API también necesitan tener una URL para que el servidor de la API sepa donde enviar sus respuestas. Los desarrolladores establecen estas URL cuando desarrollan sus aplicaciones.
 
+Una API no debe aceptar llamadas de cualquier cliente. Por estas razones, el servidor de la API tiene que asegurarse de que el cliente del que procede la llamada es conocido y de confianza. La verificación de la identidad se hace mediante el proceso de autenticación.
 
-
-En el estilo arquitectónico REST se lleva a cabo la separación entre cliente y servidor. La implementación de ambas partes se puede realizar de forma independiente sin que cada uno conozca al otro. Esto significa que el código del lado del cliente se puede cambiar en cualquier momento sin afectar el funcionamiento del servidor, y el código del lado del servidor se puede cambiar sin afectar el funcionamiento del cliente. La única condición es que cada parte mantenga el formato de mensaje que debe enviar a la otra.
-
-
-Un *endpoint* o punto final es el lugar donde se realizan las solicitudes a la API.
-(conocidas como llamadas API).
-
-la URL de un punto final de la API es como un número de teléfono para hacer llamadas API.
-
-Un servidor de API puede alojar uno o varios puntos finales de la API, lo que significa que aceptará y procesará las llamadas dirigidas a las URL de esos puntos finales. Los clientes de la API también necesitan tener una URL para que el servidor de la API sepa dónde enviar sus respuestas, del mismo modo que Bob y Alice necesitan un número de teléfono para llamarse. Los desarrolladores establecen esta URL cuando desarrollan sus aplicaciones.
-
-Una URL siempre incluye el protocolo de la capa de aplicación, como HTTP, utilizado para llegar a ella. La mayoría de las API web utilizan HTTP, por lo que se incluye en la URL del punto final de la API.
-
-
-
-
-Permisos y autentificación
-
-Una API no acepta llamadas de cualquier cliente. Por estas razones, el servidor de la API tiene que asegurarse de que el cliente del que procede la llamada es conocido y de confianza. La verificación de la identidad se hace mediante la autenticación.
-
-
-
+Por último, una API tiene que tener documentación sobre su uso donde indica al cliente qué tipos de solicitudes acepta la API, cómo formatea sus respuestas y cuáles son sus *endpoints* entre otras cosas.
 
 </br>
+
 
 ### ARQUITECTURA DE UNA APLICACIÓN WEB
 
@@ -671,6 +631,28 @@ Se muestra una representación de esta analogía entre una aplicación web y un 
 </br> 
 
 ![Analogía API restaurante](/images/api_restaurant_analogy.png)
+
+</br>
+
+
+### MÉTODOS HTTP
+
+Los métodos HTTP son fundamentales en la comunicación entre cliente y servidor ya que indican la acción a realizar con el recurso especificado. Aunque estos también pueden ser sustantivos, estos métodos de solicitud a veces son llamados HTTP verbs. Es importante resaltar que siempre deben escribirse todas sus letras en mayúsculas.
+
+A continuación vemos un lista
+
+
+Método | Descripción
+:---: | -----------
+**GET**     | solicita la información completa de un recurso del servidor. No provoca ningún cambio en el servidor. 
+**POST**    | crea un nuevo recurso en el servidor. Junto a la solicitud el cliente debe enviar la información para crear el nuevo recurso.
+**PUT**     | reemplaza completamente la información de un recurso en el servidor. El cliente debe enviar el recurso al completo al servidor incluso si este ha sido modificado levemente. actualiza completamente el recurso.
+**PATCH**   | aplica modificaciones parciales a un recurso
+**DELETE**  | borra un recurso en el servidor. El cliente que envía la solicitud debe indicar el recurso a eliminar.
+
+</br>
+
+Podemos ver una lista completa de métodos HTTP en el siguiente [enlace](https://webconcepts.info/concepts/http-method/)
 
 </br>
 
@@ -745,41 +727,18 @@ Podemos ver otro ejemplo de archivo `.json` en el que se ve claramente su estruc
 </br>
 
 
-### MÉTODOS HTTP
+### SISTEMAS REST
 
-Los métodos HTTP son fundamentales en la comunicación entre cliente y servidor ya que indican la acción a realizar con el recurso especificado. Aunque estos también pueden ser sustantivos, estos métodos de solicitud a veces son llamados HTTP verbs. Es importante resaltar que siempre deben escribirse todas sus letras en mayúsculas.
+REST (*REpresentational State Transfer*) es una arquitectura de software que impone condiciones sobre cómo debe funcionar una API. En la arquitectura REST los clientes envían solicitudes para recuperar o modificar recursos y los servidores envían respuestas a estas solicitudes. Un sistema REST permite intercambiar información de manera segura y eficiente a través de Internet.
 
-A continuación vemos un lista
+En el estilo arquitectónico REST se lleva a cabo la separación entre cliente y servidor. La implementación de ambas partes se puede realizar de forma independiente sin que cada uno conozca al otro. Esto significa que el código del lado del cliente se puede cambiar en cualquier momento sin afectar el funcionamiento del servidor, y el código del lado del servidor se puede cambiar sin afectar el funcionamiento del cliente. La única condición es que cada parte mantenga el formato de mensaje que debe enviar a la otra.
 
-
-Método | Descripción
-:---: | -----------
-**GET**     | solicita la información completa de un recurso del servidor. No provoca ningún cambio en el servidor. 
-**POST**    | crea un nuevo recurso en el servidor. Junto a la solicitud el cliente debe enviar la información para crear el nuevo recurso.
-**PUT**     | reemplaza completamente la información de un recurso en el servidor. El cliente debe enviar el recurso al completo al servidor incluso si este ha sido modificado levemente. actualiza completamente el recurso.
-**PATCH**   | aplica modificaciones parciales a un recurso
-**DELETE**  | borra un recurso en el servidor. El cliente que envía la solicitud debe indicar el recurso a eliminar.
-
-</br>
-
-Podemos ver una lista completa de métodos HTTP en el siguiente [enlace](https://webconcepts.info/concepts/http-method/)
+Las API que siguen el estilo arquitectónico de REST se llaman API RESTful.
 
 </br>
 
 
-### SISTEMA REST
-
-Los verbos Http involucrados en un sistema REST son GET, POST, PUT, PATCH y DELETE.
-
-
-En la arquitectura REST, los clientes envían solicitudes para recuperar o modificar recursos y los servidores envían respuestas a estas solicitudes. Echemos un vistazo a las formas estándar de realizar solicitudes y enviar respuestas.
-
-> REST es una arquitectura para aplicaciones en redes (REpresentational State Transfer). RESTful por otro lado, son programas (a modo de web service o API), basados en REST. Muchas veces se usan ambos terminos como sinonimos.
-
-> La API RESTful es una interfaz que dos sistemas de computación utilizan para intercambiar información de manera segura a través de Internet. La mayoría de las aplicaciones para empresas deben comunicarse con otras aplicaciones internas o de terceros para llevar a cabo varias tareas
-
-> Las API RESTful admiten este intercambio de información porque siguen estándares de comunicación de software seguros, confiables y eficientes.
-
+### SISTEMA CRUD
 
 El término *CRUD* se refiere a las iniciales de las cuatro operaciones básicas que se pueden llevar a cabo en la mayoría de las bases de datos y sistemas de gestión de información:
 
@@ -788,105 +747,40 @@ El término *CRUD* se refiere a las iniciales de las cuatro operaciones básicas
 - [**U**]PDATE - actualizar
 - [**D**]ELETE - borrar
 
-Crear, Leer, Actualizar y Eliminar (CRUD) son las cuatro funciones básicas que los modelos deberían poder realizar, como máximo.
-Crear, leer, actualizar, eliminar
-Cuando creamos API, queremos que nuestros modelos proporcionen cuatro tipos básicos de funcionalidad. El modelo debe poder crear, leer, actualizar y eliminar recursos. Los informáticos suelen referirse a estas funciones con el acrónimo CRUD. Un modelo debe tener la capacidad de realizar como máximo estas cuatro funciones para ser completo. Si una acción no puede describirse mediante una de estas cuatro operaciones, entonces debería ser potencialmente un modelo en sí misma.
+</br>
 
 
+En un entorno REST los verbos CRUD se corresponden a los métodos HTTP POST, GET, PUT y DELETE respectivamente.
+
+REST requiere que un cliente realice una solicitud al servidor para recuperar o modificar datos en el servidor. 
+
+</br>
 
 
-Haciendo peticiones
+Una solicitud generalmente consta de:
 
-REST requiere que un cliente realice una solicitud al servidor para recuperar o modificar datos en el servidor. Una solicitud generalmente consta de:
+- **HTTP verb** - un verbo HTTP, que define qué tipo de operación realizar
+- **Header** - un encabezado que permite al cliente transmitir información sobre la solicitud
+- **Path** - una ruta hacia un recurso
+- **Body** - un cuerpo de mensaje opcional que contiene datos de la solicitud
 
-- **HTTP verb**un verbo HTTP, que define qué tipo de operación realizar
-- **header** un encabezado, que permite al cliente transmitir información sobre la solicitud
-- **path** una ruta hacia un recurso
-- **body** un cuerpo de mensaje opcional que contiene datos
-
-
-
-¿Qué contiene la solicitud del cliente de la API RESTful?
-
-Las API RESTful requieren que las solicitudes contengan los siguientes componentes principales:
-
-Identificador único de recursos
-
-El servidor identifica cada recurso con identificadores únicos de recursos. En los servicios REST, el servidor por lo general identifica los recursos mediante el uso de un localizador uniforme de recursos (URL). El URL especifica la ruta hacia el recurso. Un URL es similar a la dirección de un sitio web que se ingresa al navegador para visitar cualquier página web. El URL también se denomina punto de conexión de la solicitud y especifica con claridad al servidor qué requiere el cliente.
-
-Método
-
-Los desarrolladores a menudo implementan API RESTful mediante el uso del protocolo de transferencia de hipertexto (HTTP). Un método de HTTP informa al servidor lo que debe hacer con el recurso. A continuación, se indican cuatro métodos de HTTP comunes:
-
-GET
-
-Los clientes utilizan GET para acceder a los recursos que están ubicados en el URL especificado en el servidor. Pueden almacenar en caché las solicitudes GET y enviar parámetros en la solicitud de la API RESTful para indicar al servidor que filtre los datos antes de enviarlos.
-
-POST
-
-Los clientes usan POST para enviar datos al servidor. Incluyen la representación de los datos con la solicitud. Enviar la misma solicitud POST varias veces produce el efecto secundario de crear el mismo recurso varias veces.
-
-PUT
-
-Los clientes utilizan PUT para actualizar los recursos existentes en el servidor. A diferencia de POST, el envío de la misma solicitud PUT varias veces en un servicio web RESTful da el mismo resultado.
-
-DELETE
-
-Los clientes utilizan la solicitud DELETE para eliminar el recurso. Una solicitud DELETE puede cambiar el estado del servidor. Sin embargo, si el usuario no cuenta con la autenticación adecuada, la solicitud fallará.
-
-Encabezados de HTTP
-
-Los encabezados de solicitudes son los metadatos que se intercambian entre el cliente y el servidor. Por ejemplo, el encabezado de la solicitud indica el formato de la solicitud y la respuesta, proporciona información sobre el estado de la solicitud, etc.
-
-Datos
-
-Las solicitudes de la API REST pueden incluir datos para que los métodos POST, PUT y otros métodos HTTP funcionen de manera correcta.
-
-Parámetros
-
-Las solicitudes de la API RESTful pueden incluir parámetros que brindan al servidor más detalles sobre lo que se debe hacer. A continuación, se indican algunos tipos de parámetros diferentes:
-
-Los parámetros de ruta especifican los detalles del URL.
-Los parámetros de consulta solicitan más información acerca del recurso.
-Los parámetros de cookie autentican a los clientes con rapidez.
+</br>
 
 
+Una respuesta generalmente consta de:
 
-¿Qué contiene la respuesta del servidor de la API RESTful?
+- **Header** - un encabezado que da información sobre la respuesta
+- **Status Code** - un código de tres dígitos que comunica el estado de la respuesta
+- **Body** - cuerpo del mensaje que contiene los datos de la respuesta
 
-Los principios de REST requieren que la respuesta del servidor contenga los siguientes componentes principales:
-
-Línea de estado
-
-La línea de estado contiene un código de estado de tres dígitos que comunica si la solicitud se procesó de manera correcta o dio error. Por ejemplo, los códigos 2XX indican el procesamiento correcto, pero los códigos 4XX y 5XX indican errores. Los códigos 3XX indican la redirección de URL.
-
-A continuación, se enumeran algunos códigos de estado comunes:
-
-200: respuesta genérica de procesamiento correcto
-201: respuesta de procesamiento correcto del método POST
-400: respuesta incorrecta que el servidor no puede procesar
-404: recurso no encontrado
-Cuerpo del mensaje
-
-El cuerpo de la respuesta contiene la representación del recurso. El servidor selecciona un formato de representación adecuado en función de lo que contienen los encabezados de la solicitud. Los clientes pueden solicitar información en los formatos XML o JSON, lo que define cómo se escriben los datos en texto sin formato. Por ejemplo, si el cliente solicita el nombre y la edad de una persona llamada John, el servidor devuelve una representación JSON como la siguiente:
-
-'{"name":"John", "age":30}'
-
-Encabezados
-
-La respuesta también contiene encabezados o metadatos acerca de la respuesta. Estos brindan más contexto sobre la respuesta e incluyen información como el servidor, la codificación, la fecha y el tipo de contenido.
+</br></br>
 
 
+A continuación vemos ejemplos para las diferentes acciones en un sistema CRUD:
 
-CRUD and REST
-In a REST environment, CRUD often corresponds to the HTTP methods POST, GET, PUT, and DELETE, respectively. These are the fundamental elements of a persistent storage system.
+#### CREATE
 
-Throughout the rest of the article, we will recommend standards and response codes that are typically followed by developers when creating RESTful applications. Conventions may differ so feel free to experiment with different return values and codes as you become comfortable with the CRUD paradigm.
-
-Imagine we are working with a system that is keeping track of meals and their corresponding prices for a restaurant. Let’s look at how we would implement CRUD operations.
-
-CREATE
-
+```
 Request:
 
 POST http://www.myrestaurant.com/dishes/
@@ -899,6 +793,7 @@ Body -
     "price": 8
   }
 }
+
 
 Response:
 
@@ -913,15 +808,22 @@ Body -
     "price": 8
   }
 }
+```
+
+</br>
 
 
-READ
+#### READ
 
+```
 Request:
 
 GET http://www.myrestaurant.com/dishes/
 
-Response: Status Code - 200 (OK)
+
+Response: 
+
+Status Code - 200 (OK)
 
 Body -
 
@@ -950,14 +852,22 @@ Body -
     }
   ]
 }
+```
 
-read a specific item
+</br>
 
+
+Para un recurso concreto:
+
+```
 Request:
 
 GET http://www.myrestaurant.com/dishes/1223
 
-Response: Status Code - 200 (OK)
+
+Response:
+
+Status Code - 200 (OK)
 
 Body -
 
@@ -966,10 +876,14 @@ Body -
   "name": “Avocado Toast”,
   "price": 8
 }
+```
+
+</br>
 
 
-UPDATE
+#### UPDATE
 
+```
 Request:
 
 PUT http://www.myrestaurant.com/dishes/1223
@@ -983,7 +897,9 @@ Body -
 }
 
 
-Response: Status Code - 200 (OK)
+Response:
+
+Status Code - 200 (OK)
 
 Body -
 
@@ -993,18 +909,25 @@ Body -
     "price": 10
   }
 }
+```
+
+</br>
 
 
-DELETE
+#### DELETE
 
+```
 Request:
 
 DELETE http://www.myrestaurant.com/dishes/1223
 
 
-Response: Status Code - 204 (NO CONTENT)
+Response:
+
+Status Code - 204 (NO CONTENT)
 
 Body - None
+```
 
 </br>
 
@@ -1108,46 +1031,27 @@ Podemos ver una descripción más detallada de todos ellos en el siguiente [enla
 
 ### POSTMAN
 
-Básicamente permite configurar rutas de endpoints del API y ejecutarlas, para ejercitar el backend de las aplicaciones.
-
-Gracias a Postman podemos guardar todas las request que queramos, para tenerlas preparadas y poder ejecutarlas las veces que haga falta. Esto nos facilita mucho el día a día en el desarrollo, pues generalmente tendremos que probar una ruta diversas veces hasta que comprobemos que todo funciona como se esperaba.
-
-A través del cliente API, puede organizar solicitudes en Colecciones Postman para ayudarlo a organizar sus solicitudes para su reutilización, de modo que no pierda tiempo creando todo desde cero. Sus colecciones también pueden contener código JavaScript para vincular solicitudes o automatizar flujos de trabajo comunes, y puede usar secuencias de comandos para visualizar sus respuestas API como cuadros y gráficos.
-
-
-
-
-Además, Postman permite trabajar cómodamente con todos los métodos del HTTP, como GET, POST, PUT, PATCH, DELETE.
-
 Postman es un software de uso gratuito popularmente usado para el desarrollo de APIs. Su principal función es permitirnos comunicarnos directamente con una API y emular las solicitudes que posteriormente harán las aplicaciones web que se comuniquen con ella.
 
-Podemos realizar cualquier solicitud y recibir la respuesta dada por la API para poder analizarla.
+Nos permite trabajar cómodamente con los métodos HTTP como GET, POST, PUT, PATCH y DELETE. Podemos usar la interfaz gráfica del programa para realizar las diferentes solicitudes y recibir las respuestas dadas por la API para poder analizarlas. Además, postman formatea el cuerpo de las respuestas recibidas para hacerlas legibles y poder inspeccionarlas de forma sencilla.
 
-El uso de herramientas como postman es de vital importancia para comprobar el funcionamiento de una API durante su desarrollo. Su principal ventaja es poder emular las solicitudes realizadas a la API y nos ahorra así tener que desarrollar una aplicación web real.
+Se puede organizar las solicitudes en colecciones para reutilizarlas posteriormente e incluso escribir código JavaScript para vincular solicitudes o automatizar flujos de trabajo comunes. También se puede usar secuencias de comandos para visualizar las respuestas de la API como cuadros y gráficos.
 
-Podemos usar la interfaz gráfica del programa para poder realizar las diferentes solicitudes
-
-
-Postman también nos ayuda a generar automáticamente documentación para nuestra API. Esto permite que futuros usuarios tengan una guía de referencia para utilizarla.
-
-and format text inside the body to make inspection easy
-
-
-
-[postman.com](https://www.postman.com/)
+</br>
 
 ![Postman](/images/postman_screenshot.png)
 
-Permite automatizar las peticiones
+</br>
 
 
-> endpoints
+El uso de herramientas como postman es de vital importancia para comprobar el funcionamiento de una API durante su desarrollo. Su principal ventaja es poder emular las solicitudes realizadas a la API y nos ahorra así tener que desarrollar una aplicación web real.
 
-> cuerpo de la solicitud
+Por último, Postman también nos ayuda a generar la documentación para nuestra API con métodos automatizados. Esto permite que futuros usuarios tengan una guía de referencia para utilizarla.
+
+</br>
 
 
-
-
+Podemos acceder a la página oficial de Postman en [www.postman.com](https://www.postman.com/).
 
 </br></br></br></br></br>
 
